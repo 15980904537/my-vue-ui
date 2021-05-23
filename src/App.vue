@@ -35,6 +35,40 @@
       <my-col :span="6" :offset="2">2</my-col>
       <my-col :span="8">3</my-col>
     </my-row>
+
+    <!-- 第一种页面布局 -->
+    <my-layout>
+      <my-header>header</my-header>
+      <my-content>content</my-content>
+      <my-footer>footer</my-footer>
+    </my-layout>
+    <!-- 第二种页面布局 -->
+    <my-layout>
+      <my-header>header</my-header>
+      <my-layout>
+        <my-slide>slide</my-slide>
+        <my-content>content</my-content>
+      </my-layout>
+      <my-footer>footer</my-footer>
+    </my-layout>
+    <!-- 第三种页面布局 -->
+    <my-layout>
+      <my-header>header</my-header>
+      <my-layout>
+        <my-content>content</my-content>
+        <my-slide>slide</my-slide>
+      </my-layout>
+      <my-footer>footer</my-footer>
+    </my-layout>
+    <!-- 第四种页面布局 -->
+    <my-layout>
+      <my-slide>slide</my-slide>
+      <my-layout>
+        <my-header>header</my-header>
+        <my-content>content</my-content>
+        <my-footer>footer</my-footer>
+      </my-layout>
+    </my-layout>
   </div>
 </template>
 
