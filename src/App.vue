@@ -26,8 +26,23 @@
     <br />
 
     <my-row>
-      <my-col :span="2">1</my-col>
-      <my-col :span="12" :offset="10">2</my-col>
+      <my-col
+        :span="12"
+        :ipad="{ span: 10 }"
+        :narrowPc="{ span: 8 }"
+        :pc="{ span: 6 }"
+        :widthPc="{ span: 4 }"
+        >1</my-col
+      >
+      <my-col
+        :span="10"
+        :offset="2"
+        :ipad="{ span: 12 }"
+        :narrowPc="{ span: 14 }"
+        :pc="{ span: 16 }"
+        :widthPc="{ span: 18 }"
+        >2</my-col
+      >
     </my-row>
 
     <my-row :gutter="20">
