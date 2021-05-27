@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <my-button>默认按钮</my-button>
+    <!-- <my-button>默认按钮</my-button>
     <my-button type="success">默认按钮</my-button>
     <my-button type="danger">默认按钮</my-button>
     <my-button type="info">默认按钮</my-button>
@@ -9,23 +9,23 @@
     <my-icon icon="add"></my-icon>
     <my-button type="success" icon="add" icon-position="right">添加</my-button>
     <my-button type="info" loading>加载中</my-button>
-    <my-button type="info" @click="fn">触发事件</my-button>
+    <my-button type="info" @click="fn">触发事件</my-button> -->
 
-    <my-grounp-button>
+    <!-- <my-grounp-button>
       <my-button type="success">上一页</my-button>
       <my-button type="success">中间</my-button>
       <my-button type="success">下一页</my-button>
-    </my-grounp-button>
+    </my-grounp-button> -->
 
-    <my-input value="hahha" disabled></my-input>
+    <!-- <my-input value="hahha" disabled></my-input>
     <my-input value="000" readonly></my-input>
     <my-input value="adasdsa" error="姓名不能少于两个字"></my-input>
     <my-input value="adasdsa" @input="func" v-model="message"></my-input>
     <p>{{ message }}</p>
 
-    <br />
+    <br /> -->
 
-    <my-row>
+    <!-- <my-row>
       <my-col
         :span="12"
         :ipad="{ span: 10 }"
@@ -43,47 +43,49 @@
         :widthPc="{ span: 18 }"
         >2</my-col
       >
-    </my-row>
+    </my-row> -->
 
-    <my-row :gutter="20">
+    <!-- <my-row :gutter="20">
       <my-col :span="8">1</my-col>
       <my-col :span="6" :offset="2">2</my-col>
       <my-col :span="8">3</my-col>
-    </my-row>
+    </my-row> -->
 
     <!-- 第一种页面布局 -->
-    <my-layout>
+    <!-- <my-layout>
       <my-header>header</my-header>
       <my-content>content</my-content>
       <my-footer>footer</my-footer>
-    </my-layout>
+    </my-layout> -->
     <!-- 第二种页面布局 -->
-    <my-layout>
+    <!-- <my-layout>
       <my-header>header</my-header>
       <my-layout>
         <my-slide>slide</my-slide>
         <my-content>content</my-content>
       </my-layout>
       <my-footer>footer</my-footer>
-    </my-layout>
+    </my-layout> -->
     <!-- 第三种页面布局 -->
-    <my-layout>
+    <!-- <my-layout>
       <my-header>header</my-header>
       <my-layout>
         <my-content>content</my-content>
         <my-slide>slide</my-slide>
       </my-layout>
       <my-footer>footer</my-footer>
-    </my-layout>
+    </my-layout> -->
     <!-- 第四种页面布局 -->
-    <my-layout>
+    <!-- <my-layout>
       <my-slide>slide</my-slide>
       <my-layout>
         <my-header>header</my-header>
         <my-content>content</my-content>
         <my-footer>footer</my-footer>
       </my-layout>
-    </my-layout>
+    </my-layout> -->
+
+    <my-button @click="showToast">点击我</my-button>
   </div>
 </template>
 
@@ -101,6 +103,19 @@ export default {
     },
     func(e) {
       console.log(e);
+    },
+    showToast() {
+      this.$toast(
+        "这是一个t大撒打算打算打算的撒打算打算定位为其恶趣味oast组件",
+        {
+          closeButton: {
+            text: "关闭lele!",
+            callback: () => {
+              console.log("这是用户关闭的");
+            },
+          },
+        }
+      );
     },
   },
 };
