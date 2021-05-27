@@ -105,17 +105,15 @@ export default {
       console.log(e);
     },
     showToast() {
-      this.$toast(
-        "哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈啊哈哈哈啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈",
-        {
-          closeButton: {
-            text: "关闭",
-            callback: () => {
-              console.log("这是用户关闭的");
-            },
+      this.$toast("这是用户关闭的!<h2>关闭</h2>", {
+        enableHtml: false,
+        closeButton: {
+          text: "关闭",
+          callback: () => {
+            console.log("这是用户关闭的");
           },
-        }
-      );
+        },
+      });
     },
   },
 };
