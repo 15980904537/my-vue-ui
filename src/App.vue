@@ -106,10 +106,10 @@ export default {
     },
     showToast() {
       this.$toast(
-        "这是一个t大撒打算打算打算的撒打算打算定位为其恶趣味oast组件",
+        "哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈啊哈哈哈啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈",
         {
           closeButton: {
-            text: "关闭lele!",
+            text: "关闭",
             callback: () => {
               console.log("这是用户关闭的");
             },
