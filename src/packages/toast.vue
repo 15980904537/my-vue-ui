@@ -42,6 +42,7 @@ export default {
     return {};
   },
   mounted() {
+    console.log(1);
     this.pageAutoplay();
     this.updatHeight();
   },
@@ -61,6 +62,8 @@ export default {
       });
     },
     close() {
+      //解决关闭时组件没销毁的问题
+      this.$emit("close");
       this.$el.remove();
       this.$destroy();
     },
