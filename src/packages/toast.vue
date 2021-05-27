@@ -1,5 +1,5 @@
 <template>
-  <div class="toast" ref="toast">
+  <div class="toast" ref="toast" :class="positionClass">
     <div class="message">
       <div v-html="this.$slots.default[0]" v-if="enableHtml"></div>
       <slot v-else></slot>
@@ -15,7 +15,17 @@
 <script>
 export default {
   name: "my-toast",
+  data() {
+    return {};
+  },
   props: {
+    position: {
+      type: String,
+      default: "top",
+      validator(value) {
+        return ["top", "middle", "bottom"].includes(value);
+      },
+    },
     autoplay: {
       type: Boolean,
       default: false,
@@ -38,8 +48,10 @@ export default {
       default: false,
     },
   },
-  data() {
-    return {};
+  computed: {
+    positionClass() {
+      return { [`position-${this.position}`]: true };
+    },
   },
   mounted() {
     console.log(1);
@@ -74,8 +86,6 @@ export default {
       }
     },
   },
-
-  watch: {},
 };
 </script>
 <style lang='scss' scoped>
@@ -97,9 +107,20 @@ export default {
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);
   background: rgba(0, 0, 0, 0.75);
   color: #fff;
-  top: 0;
   left: 50%;
-  transform: translateX(-50%);
+
+  &.position-top {
+    top: 0;
+    transform: translateX(-50%);
+  }
+  &.position-middle {
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  &.position-bottom {
+    bottom: 0;
+    transform: translateX(-50%);
+  }
   .message {
     padding: 8px 0;
   }

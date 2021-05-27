@@ -6,9 +6,6 @@ export default {
         Vue.prototype.$toast = function (message, toastOptions) { 
             if (currentToast) { 
                 currentToast.close()
-                currentToast.$on('close', () => {
-
-                })
             }
             currentToast = createToast({ Vue, message, propsData: toastOptions, onClose: () => { currentToast=null}})   
         }

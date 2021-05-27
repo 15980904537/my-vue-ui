@@ -106,6 +106,7 @@ export default {
     },
     showToast() {
       this.$toast("这是用户关闭的!<h2>关闭</h2>", {
+        position: "bottom",
         enableHtml: false,
         closeButton: {
           text: "关闭",
