@@ -54,7 +54,6 @@ export default {
     },
   },
   mounted() {
-    console.log(1);
     this.pageAutoplay();
     this.updatHeight();
   },
@@ -94,6 +93,7 @@ export default {
   margin: 0;
   box-sizing: border-box;
 }
+
 .toast {
   position: fixed;
   display: flex;
@@ -108,16 +108,42 @@ export default {
   background: rgba(0, 0, 0, 0.75);
   color: #fff;
   left: 50%;
-
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes slide-up {
+    0% {
+      transform: translate(-50%, 100%);
+    }
+    100% {
+      transform: translate(-50%, 0);
+    }
+  }
+  @keyframes slide-down {
+    0% {
+      transform: translate(-50%, -100%);
+    }
+    100% {
+      transform: translate(-50%, 0);
+    }
+  }
   &.position-top {
+    animation: slide-down 1s;
     top: 0;
     transform: translateX(-50%);
   }
   &.position-middle {
+    animation: fade-in 1s;
     top: 50%;
     transform: translate(-50%, -50%);
   }
   &.position-bottom {
+    animation: slide-up 1s;
     bottom: 0;
     transform: translateX(-50%);
   }
