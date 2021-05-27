@@ -1,7 +1,10 @@
 <template>
   <div class="toast" ref="toast">
-    <div v-html="this.$slots.default[0]" v-if="enableHtml"></div>
-    <slot v-else></slot>
+    <div class="message">
+      <div v-html="this.$slots.default[0]" v-if="enableHtml"></div>
+      <slot v-else></slot>
+    </div>
+
     <div class="bd" ref="line"></div>
     <span class="close" @click="closeButtonEvent" v-if="closeButton">{{
       closeButton.text
@@ -39,23 +42,24 @@ export default {
     return {};
   },
   mounted() {
-    if (this.autoplay) {
-      setTimeout(() => {
-        this.close();
-      }, this.autoTime * 1000);
-    }
-    this.$nextTick(() => {
-      this.$refs.line.style.height = `${
-        this.$refs.toast.getBoundingClientRect().height
-      }px`;
-    });
+    this.pageAutoplay();
+    this.updatHeight();
   },
-  components: {},
-
-  computed: {},
-
-  beforeMount() {},
   methods: {
+    pageAutoplay() {
+      if (this.autoplay) {
+        setTimeout(() => {
+          this.close();
+        }, this.autoTime * 1000);
+      }
+    },
+    updatHeight() {
+      this.$nextTick(() => {
+        this.$refs.line.style.height = `${
+          this.$refs.toast.getBoundingClientRect().height
+        }px`;
+      });
+    },
     close() {
       this.$el.remove();
       this.$destroy();
@@ -93,6 +97,9 @@ export default {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
+  .message {
+    padding: 8px 0;
+  }
   .bd {
     border-left: 1px solid #fff;
     margin-left: 16px;
