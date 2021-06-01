@@ -91,8 +91,8 @@
       @update:selected="selectedTab = $event"
     ></my-tabs-head> -->
 
-    <my-tabs>
-      <my-tabs-head selected.sync="selectedTab" direction="horizontal">
+    <my-tabs selected.sync="selectedTab" direction="horizontal">
+      <my-tabs-head>
         <my-tabs-item name="sport" disabled>
           <my-icon icon="add"></my-icon>
           体育
