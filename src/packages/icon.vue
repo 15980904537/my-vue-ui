@@ -36,5 +36,6 @@ export default {
   width: 25px;
   height: 25px;
   vertical-align: middle;
+  /* color: #000; */
 }
 </style>
