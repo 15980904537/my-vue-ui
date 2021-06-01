@@ -19,10 +19,12 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
+$tab-height: 40px;
 .tabs-head {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  height: $tab-height;
   .actions {
     margin-left: auto;
   }

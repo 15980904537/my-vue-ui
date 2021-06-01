@@ -51,6 +51,8 @@ export default {
   display: flex;
   align-items: center;
   padding: 0 3em;
+  cursor: pointer;
+  height: 100%;
   &.active {
     background: red;
   }
