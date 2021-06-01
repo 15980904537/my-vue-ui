@@ -85,7 +85,30 @@
       </my-layout>
     </my-layout> -->
 
-    <my-button @click="showToast">点击我</my-button>
+    <!-- <my-button @click="showToast">点击我</my-button> -->
+    <!-- <my-tabs-head
+      selected="selectedTab"
+      @update:selected="selectedTab = $event"
+    ></my-tabs-head> -->
+
+    <my-tabs>
+      <my-tabs-head selected.sync="selectedTab" direction="horizontal">
+        <my-tabs-item name="sport" disabled>
+          <my-icon icon="add"></my-icon>
+          体育
+        </my-tabs-item>
+        <my-tabs-item name="image">图片</my-tabs-item>
+        <my-tabs-item name="music">音乐</my-tabs-item>
+        <template slot="actions">
+          <my-button>+ 创建新项目</my-button>
+        </template>
+      </my-tabs-head>
+      <my-tabs-body>
+        <my-tabs-pane name="sport">体育资讯</my-tabs-pane>
+        <my-tabs-pane name="image">图片资讯</my-tabs-pane>
+        <my-tabs-pane name="music">音乐资讯</my-tabs-pane>
+      </my-tabs-body>
+    </my-tabs>
   </div>
 </template>
 
