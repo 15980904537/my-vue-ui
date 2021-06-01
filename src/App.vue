@@ -91,7 +91,7 @@
       @update:selected="selectedTab = $event"
     ></my-tabs-head> -->
 
-    <my-tabs selected.sync="selectedTab" direction="horizontal">
+    <my-tabs :selected.sync="selectedTab" direction="horizontal">
       <my-tabs-head>
         <my-tabs-item name="sport" disabled>
           <my-icon icon="add"></my-icon>
@@ -118,6 +118,7 @@ export default {
   data() {
     return {
       message: "hahha",
+      selectedTab: "sport",
     };
   },
   methods: {

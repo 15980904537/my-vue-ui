@@ -1,5 +1,5 @@
 <template>
-  <div class="tabs-pane">
+  <div class="tabs-pane" v-if="active">
     <slot></slot>
   </div>
 </template>
@@ -14,11 +14,17 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      active: false,
+    };
   },
   created() {
     this.eventBus.$on("update:selected", (name) => {
-      console.log(name);
+      if (name === this.name) {
+        this.active = true;
+      } else {
+        this.active = false;
+      }
     });
   },
 

@@ -1,7 +1,9 @@
 <template>
   <div class="tabs-head">
     <slot></slot>
-    <slot name="actions"></slot>
+    <div class="actions">
+      <slot name="actions"></slot>
+    </div>
   </div>
 </template>
 
@@ -14,19 +16,15 @@ export default {
   data() {
     return {};
   },
-
-  components: {},
-
-  computed: {},
-
-  beforeMount() {},
-
-  mounted() {},
-
-  methods: {},
-
-  watch: {},
 };
 </script>
-<style lang='' scoped>
+<style lang='scss' scoped>
+.tabs-head {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  .actions {
+    margin-left: auto;
+  }
+}
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tab">
     <slot></slot>
   </div>
 </template>
@@ -31,7 +31,13 @@ export default {
       eventBus: new Vue(),
     };
   },
+  mounted() {
+    // this.eventBus.$emit("update:selected", this.name);
+    console.log(111);
+    console.log(this.selected);
+    this.eventBus.$emit("update:selected", this.selected);
+  },
 };
 </script>
-<style lang='' scoped>
+<style lang='scss' scoped>
 </style>
