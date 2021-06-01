@@ -100,7 +100,7 @@
         <my-tabs-item name="image">图片</my-tabs-item>
         <my-tabs-item name="music">音乐</my-tabs-item>
         <template slot="actions">
-          <my-button>+ 创建新项目</my-button>
+          <button>+ 创建新项目</button>
         </template>
       </my-tabs-head>
       <my-tabs-body>
