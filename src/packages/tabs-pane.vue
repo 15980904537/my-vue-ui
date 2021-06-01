@@ -1,11 +1,12 @@
 <template>
-  <div>
+  <div class="tabs-pane">
     <slot></slot>
   </div>
 </template>
 <script>
 export default {
   name: "my-tabs-pane",
+  inject: ["eventBus"],
   props: {
     name: {
       type: String,
@@ -14,6 +15,11 @@ export default {
   },
   data() {
     return {};
+  },
+  created() {
+    this.eventBus.$on("update:selected", (name) => {
+      console.log(name);
+    });
   },
 
   components: {},

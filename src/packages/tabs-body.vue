@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tabs-body">
     <slot></slot>
   </div>
 </template>
@@ -7,6 +7,7 @@
 <script>
 export default {
   name: "my-tabs-body",
+  inject: ["eventBus"],
   props: [""],
   data() {
     return {};

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tabe-item" @click="xxx">
     <slot></slot>
   </div>
 </template>
@@ -17,10 +17,20 @@ export default {
       default: true,
     },
   },
+  inject: ["eventBus"],
+  created() {
+    this.eventBus.$on("update:selected", (name) => {
+      console.log(name);
+    });
+  },
   data() {
     return {};
   },
-
+  methods: {
+    xxx() {
+      this.eventBus.$emit("update:selected", this.name);
+    },
+  },
   components: {},
 
   computed: {},
@@ -28,8 +38,6 @@ export default {
   beforeMount() {},
 
   mounted() {},
-
-  methods: {},
 
   watch: {},
 };

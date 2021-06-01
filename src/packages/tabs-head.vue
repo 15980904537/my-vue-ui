@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tabs-head">
     <slot></slot>
     <slot name="actions"></slot>
   </div>
@@ -9,6 +9,8 @@
 export default {
   name: "my-tabs-head",
   props: {},
+  inject: ["eventBus"],
+  created() {},
   data() {
     return {};
   },

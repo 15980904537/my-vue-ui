@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import Vue from "vue";
 export default {
   name: "my-tabs",
   props: {
@@ -20,21 +21,16 @@ export default {
       },
     },
   },
-  data() {
-    return {};
+  provide() {
+    return {
+      eventBus: this.eventBus,
+    };
   },
-
-  components: {},
-
-  computed: {},
-
-  beforeMount() {},
-
-  mounted() {},
-
-  methods: {},
-
-  watch: {},
+  data() {
+    return {
+      eventBus: new Vue(),
+    };
+  },
 };
 </script>
 <style lang='' scoped>
