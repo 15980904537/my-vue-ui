@@ -110,10 +110,16 @@
       </my-tabs-body>
     </my-tabs> -->
 
-    <my-popover content="这是一段文字!" @click="yyy">
+    <my-popover
+      content="这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!"
+      @click="yyy"
+      position="top"
+    >
       <my-button>点我呀</my-button>
     </my-popover>
-    <my-popover content="这是一段文字!">
+    <my-popover
+      content="zxcxfsflasjlksjdkshfgieuqwioeuoqwuewqwertyuiopasdfghjklznxbvmcdjfksiouriwqywq"
+    >
       <my-button>点我呀</my-button>
     </my-popover>
   </div>
