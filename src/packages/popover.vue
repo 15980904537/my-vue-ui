@@ -1,6 +1,6 @@
 <template>
   <div class="popover">
-    <div v-if="show" @click.stop class="conten-wrapper" ref="content">
+    <div v-if="show" @click.stop class="content-wrapper" ref="content">
       {{ content }}
     </div>
     <div @click.stop="onClick" ref="trigger">
@@ -31,9 +31,17 @@ export default {
     },
     onClick() {
       this.show = !this.show;
+      let {
+        width,
+        height,
+        top,
+        left,
+      } = this.$refs.trigger.getBoundingClientRect();
       if (this.show) {
         this.$nextTick(() => {
           document.body.appendChild(this.$refs.content);
+          this.$refs.content.style.top = top + window.scrollY + "px";
+          this.$refs.content.style.left = left + window.scrollX + "px";
           document.addEventListener("click", this.handleEvent);
         });
       }
@@ -49,12 +57,11 @@ export default {
   display: inline-block;
   vertical-align: top;
   margin-top: 100px;
-  .conten-wrapper {
-    position: absolute;
-    bottom: 100%;
-    border: 1px solid red;
-    left: 0;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
-  }
+}
+.content-wrapper {
+  position: absolute;
+  border: 1px solid red;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+  transform: translateY(-120%);
 }
 </style>
