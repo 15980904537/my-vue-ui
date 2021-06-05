@@ -1,9 +1,9 @@
 <template>
   <div class="popover">
-    <div v-if="show" @click.stop="clickContent" class="conten-wrapper">
+    <div v-if="show" @click.stop class="conten-wrapper" ref="content">
       {{ content }}
     </div>
-    <div @click.stop="onClick">
+    <div @click.stop="onClick" ref="trigger">
       <slot></slot>
     </div>
   </div>
@@ -24,6 +24,7 @@ export default {
     };
   },
   methods: {
+    //监听document的事件
     handleEvent() {
       this.show = false;
       document.removeEventListener("click", this.handleEvent);
@@ -31,11 +32,11 @@ export default {
     onClick() {
       this.show = !this.show;
       if (this.show) {
-        document.addEventListener("click", this.handleEvent);
+        this.$nextTick(() => {
+          document.body.appendChild(this.$refs.content);
+          document.addEventListener("click", this.handleEvent);
+        });
       }
-    },
-    clickContent() {
-      this.show = true;
     },
   },
 
