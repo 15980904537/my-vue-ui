@@ -1,9 +1,9 @@
 <template>
-  <div class="popover">
-    <div v-if="show" @click.stop class="content-wrapper" ref="content">
+  <div class="popover" @click="onClick">
+    <div v-if="show" class="content-wrapper" ref="content">
       {{ content }}
     </div>
-    <div @click.stop="onClick" ref="trigger">
+    <div ref="trigger">
       <slot></slot>
     </div>
   </div>
@@ -23,27 +23,49 @@ export default {
       show: false,
     };
   },
+  mounted() {},
   methods: {
-    //监听document的事件
-    handleEvent() {
-      this.show = false;
-      document.removeEventListener("click", this.handleEvent);
+    handleEvent(e) {
+      if (this.$refs.content && this.$refs.content.contains(e.target)) return;
+      this.close();
     },
-    onClick() {
-      this.show = !this.show;
+    positionContent() {
+      document.body.appendChild(this.$refs.content);
       let {
         width,
         height,
         top,
         left,
       } = this.$refs.trigger.getBoundingClientRect();
-      if (this.show) {
-        this.$nextTick(() => {
-          document.body.appendChild(this.$refs.content);
-          this.$refs.content.style.top = top + window.scrollY + "px";
-          this.$refs.content.style.left = left + window.scrollX + "px";
-          document.addEventListener("click", this.handleEvent);
-        });
+      this.$refs.content.style.top = top + window.scrollY + "px";
+      this.$refs.content.style.left = left + window.scrollX + "px";
+    },
+    listenToDocument() {
+      document.addEventListener("click", this.handleEvent);
+    },
+    open() {
+      this.show = true;
+      setTimeout(() => {
+        this.positionContent();
+        this.listenToDocument();
+      }, 0);
+    },
+    //统一关闭（优化）
+    close() {
+      console.log("关闭");
+      this.show = false;
+      document.removeEventListener("click", this.handleEvent);
+    },
+    //监听document的事件
+    onClick(event) {
+      if (this.$refs.trigger.contains(event.target)) {
+        if (this.show === true) {
+          this.close();
+        } else {
+          this.open();
+        }
+      } else {
+        console.log("上面");
       }
     },
   },
