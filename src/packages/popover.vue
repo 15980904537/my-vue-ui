@@ -52,7 +52,6 @@ export default {
     },
     //统一关闭（优化）
     close() {
-      console.log("关闭");
       this.show = false;
       document.removeEventListener("click", this.handleEvent);
     },
