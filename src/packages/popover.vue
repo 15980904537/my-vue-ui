@@ -27,7 +27,6 @@ export default {
     handleEvent() {
       this.show = false;
       document.removeEventListener("click", this.handleEvent);
-      console.log("haha");
     },
     onClick() {
       this.show = !this.show;
