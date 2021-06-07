@@ -45,24 +45,29 @@ export default {
         left,
         bottom,
       } = this.$refs.trigger.getBoundingClientRect();
+      let { height: height2 } = this.$refs.content.getBoundingClientRect();
+      console.log(height2, height);
+      let distant = (height - height2) / 2;
+
       let x = {
         top: {
           top: top + window.scrollY,
           left: left + window.scrollX,
         },
         left: {
-          top: top + window.scrollY,
+          top: top + distant + window.scrollY,
           left: left + window.scrollX,
         },
         bottom: {
-          top: top + window.scrollY,
+          top: top + height + window.scrollY,
           left: left + window.scrollX,
         },
         right: {
-          top: top + window.scrollY,
-          left: left + window.scrollX,
+          top: top + distant + window.scrollY,
+          left: left + width + window.scrollX,
         },
       };
+      console.log(distant);
       this.$refs.content.style.top = x[this.position].top + "px";
       this.$refs.content.style.left = x[this.position].left + "px";
     },
@@ -137,7 +142,6 @@ $font-size: 18px;
 
   &.position-bottom {
     margin-top: 10px;
-    transform: translateY(100%);
 
     &::before {
       bottom: 100%;
@@ -163,28 +167,36 @@ $font-size: 18px;
   }
   &.position-left {
     transform: translateX(-100%);
-    margin-right: -10px;
+    /* margin-right: -10px; */
 
     &::before {
       left: 100%;
+      top: 50%;
+      transform: translateY(-50%);
       border-left-color: $border-color;
     }
     &::after {
+      top: 50%;
+      transform: translateY(-50%);
       border-left-color: #fff;
       left: calc(100% - 1px);
     }
   }
   &.position-right {
-    transform: translateX(65%);
+    /* transform: translateX(65%); */
     /* margin-left: 10px; */
 
     &::before {
-      left: -12%;
+      top: 50%;
+      transform: translateY(-50%);
+      left: -5%;
       border-right-color: $border-color;
     }
     &::after {
+      top: 50%;
+      transform: translateY(-50%);
       border-right-color: #fff;
-      left: calc(-12% + 2px);
+      left: calc(-5% + 1px);
     }
   }
 }
