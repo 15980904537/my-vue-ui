@@ -10,7 +10,7 @@ export default {
   name: "my-collaspe",
   props: {
     selected: {
-      type: String,
+      type: Array,
     },
     single: {
       type: Boolean,
@@ -25,14 +25,31 @@ export default {
   data() {
     return {
       eventBus: new Vue(),
+      // rececive: this.selected,
     };
   },
 
   mounted() {
     this.eventBus.$emit("update:selected", this.selected);
-    this.eventBus.$on("update:selected", (select) => {
+    this.eventBus.$on("addupdate:selected", (name) => {
+      let selectedCopy = JSON.parse(JSON.stringify(this.selected));
+      if (this.single === true) {
+        selectedCopy = [name];
+      } else {
+        selectedCopy.push(name);
+      }
       //监听外界selected的变化
-      this.$emit("update:selected", select);
+      this.$emit("update:selected", selectedCopy);
+      this.eventBus.$emit("update:selected", selectedCopy);
+    });
+    this.eventBus.$on("removeupdate:selected", (name) => {
+      let index = this.selected.indexOf(name);
+      this.selected.splice(index, 1);
+      // this.selected.filter((item) => item == name);
+      // console.log(this.selected);
+      //监听外界selected的变化
+      this.$emit("update:selected", this.selected);
+      this.eventBus.$emit("update:selected", this.selected);
     });
   },
 

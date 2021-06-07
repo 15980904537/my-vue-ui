@@ -25,8 +25,8 @@ export default {
     };
   },
   mounted() {
-    this.eventBus.$on("update:selected", (select) => {
-      if (select !== this.name) {
+    this.eventBus.$on("update:selected", (names) => {
+      if (!names.includes(this.name)) {
         this.close();
       } else {
         this.open();
@@ -43,9 +43,10 @@ export default {
     onClick() {
       if (this.visible === true) {
         this.close();
+        this.eventBus.$emit("removeupdate:selected", this.name);
       } else {
         this.open();
-        this.eventBus.$emit("update:selected", this.name);
+        this.eventBus.$emit("addupdate:selected", this.name);
       }
 
       // this.visible = !this.visible;
