@@ -110,7 +110,7 @@
       </my-tabs-body>
     </my-tabs> -->
 
-    <my-popover
+    <!-- <my-popover
       content="这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!"
       @click="yyy"
       position="top"
@@ -164,7 +164,12 @@
       trigger="hover"
     >
       <my-button>点我呀</my-button>
-    </my-popover>
+    </my-popover> -->
+    <my-collaspe selected="selectTab">
+      <my-collaspe-item title="标题一" name="1">内容二</my-collaspe-item>
+      <my-collaspe-item title="标题二" name="2">内容二</my-collaspe-item>
+      <my-collaspe-item title="标题三" name="3">内容三</my-collaspe-item>
+    </my-collaspe>
   </div>
 </template>
 
@@ -175,6 +180,7 @@ export default {
     return {
       message: "hahha",
       selectedTab: "sport",
+      selectTab: "1",
     };
   },
   methods: {
