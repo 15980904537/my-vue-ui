@@ -135,6 +135,36 @@
     >
       <my-button>点我呀</my-button>
     </my-popover>
+
+    <my-popover
+      content="zuoqwuewqwerty这是一段文字!这是一段文字!这是一段文字!这是这是一段文字!这是一段文字!这是一段文字!这是"
+      position="right"
+      trigger="hover"
+    >
+      <my-button>点我呀</my-button>
+    </my-popover>
+    <my-popover
+      content="这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!"
+      @click="yyy"
+      position="top"
+      trigger="hover"
+    >
+      <my-button>点我呀</my-button>
+    </my-popover>
+    <my-popover
+      content="zuoqwuewqwerty这是一段文字!这是一段文字!这是一段文字!这是这是一段文字!这是一段文字!这是一段文字!这是这是一段文字!这是一段文字!这是一段文字!这是"
+      position="bottom"
+      trigger="hover"
+    >
+      <my-button>点我呀</my-button>
+    </my-popover>
+    <my-popover
+      content="zuoqwuewqwerty这是一段文字!这是一段文字!这是一段文字!这是这是一段文字!这是一段文字!这是一段文字!这是这是一段文字!这是一段文字!这是一段文字!这是这是一段文字!这是一段文字!这是一段文字!这是"
+      position="left"
+      trigger="hover"
+    >
+      <my-button>点我呀</my-button>
+    </my-popover>
   </div>
 </template>
 

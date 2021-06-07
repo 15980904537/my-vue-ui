@@ -1,5 +1,5 @@
 <template>
-  <div class="popover" @click="onClick">
+  <div class="popover" ref="popover">
     <div v-if="show" class="content-wrapper" ref="content" :class="classes">
       {{ content }}
     </div>
@@ -24,13 +24,27 @@ export default {
         return ["top", "bottom", "left", "right"].includes(value);
       },
     },
+    trigger: {
+      type: String,
+      default: "click",
+      validator(value) {
+        return ["click", "hover"].includes(value);
+      },
+    },
   },
   data() {
     return {
       show: false,
     };
   },
-  mounted() {},
+  mounted() {
+    if (this.trigger === "click") {
+      this.$refs.popover.addEventListener("click", this.onClick);
+    } else {
+      this.$refs.popover.addEventListener("mouseenter", this.open);
+      this.$refs.popover.addEventListener("mouseleave", this.close);
+    }
+  },
   methods: {
     handleEvent(e) {
       if (this.$refs.content && this.$refs.content.contains(e.target)) return;
@@ -46,9 +60,7 @@ export default {
         bottom,
       } = this.$refs.trigger.getBoundingClientRect();
       let { height: height2 } = this.$refs.content.getBoundingClientRect();
-      console.log(height2, height);
       let distant = (height - height2) / 2;
-
       let x = {
         top: {
           top: top + window.scrollY,
@@ -67,7 +79,6 @@ export default {
           left: left + width + window.scrollX,
         },
       };
-      console.log(distant);
       this.$refs.content.style.top = x[this.position].top + "px";
       this.$refs.content.style.left = x[this.position].left + "px";
     },
@@ -167,8 +178,6 @@ $font-size: 18px;
   }
   &.position-left {
     transform: translateX(-100%);
-    /* margin-right: -10px; */
-
     &::before {
       left: 100%;
       top: 50%;
@@ -183,9 +192,6 @@ $font-size: 18px;
     }
   }
   &.position-right {
-    /* transform: translateX(65%); */
-    /* margin-left: 10px; */
-
     &::before {
       top: 50%;
       transform: translateY(-50%);
