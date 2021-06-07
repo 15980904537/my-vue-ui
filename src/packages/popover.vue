@@ -1,6 +1,6 @@
 <template>
   <div class="popover" @click="onClick">
-    <div v-if="show" class="content-wrapper" ref="content">
+    <div v-if="show" class="content-wrapper" ref="content" :class="classes">
       {{ content }}
     </div>
     <div ref="trigger">
@@ -16,6 +16,13 @@ export default {
     content: {
       type: String,
       require: true,
+    },
+    position: {
+      type: String,
+      default: "top",
+      validator(value) {
+        return ["top", "bottom", "left", "right"].includes(value);
+      },
     },
   },
   data() {
@@ -36,9 +43,28 @@ export default {
         height,
         top,
         left,
+        bottom,
       } = this.$refs.trigger.getBoundingClientRect();
-      this.$refs.content.style.top = top + window.scrollY + "px";
-      this.$refs.content.style.left = left + window.scrollX + "px";
+      let x = {
+        top: {
+          top: top + window.scrollY,
+          left: left + window.scrollX,
+        },
+        left: {
+          top: top + window.scrollY,
+          left: left + window.scrollX,
+        },
+        bottom: {
+          top: top + window.scrollY,
+          left: left + window.scrollX,
+        },
+        right: {
+          top: top + window.scrollY,
+          left: left + window.scrollX,
+        },
+      };
+      this.$refs.content.style.top = x[this.position].top + "px";
+      this.$refs.content.style.left = x[this.position].left + "px";
     },
     listenToDocument() {
       document.addEventListener("click", this.handleEvent);
@@ -68,7 +94,13 @@ export default {
       }
     },
   },
-
+  computed: {
+    classes() {
+      return {
+        [`position-${this.position}`]: true,
+      };
+    },
+  },
   watch: {},
 };
 </script>
@@ -80,7 +112,7 @@ $font-size: 18px;
   position: relative;
   display: inline-block;
   vertical-align: top;
-  margin-top: 500px;
+  margin-top: 200px;
 }
 .content-wrapper {
   position: absolute;
@@ -91,8 +123,6 @@ $font-size: 18px;
   font-size: $font-size;
   /* box-shadow: 0 0 3px rgba(0, 0, 0, 0.5); */
   filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
-  transform: translateY(-100%);
-  margin-top: -10px;
   word-break: break-all;
   background-color: white;
   &::before,
@@ -104,13 +134,58 @@ $font-size: 18px;
     height: 0;
     border: 10px solid transparent;
   }
-  &::before {
-    top: 100%;
-    border-top-color: $border-color;
+
+  &.position-bottom {
+    margin-top: 10px;
+    transform: translateY(100%);
+
+    &::before {
+      bottom: 100%;
+      border-bottom-color: $border-color;
+    }
+    &::after {
+      border-bottom-color: #fff;
+      bottom: calc(100% - 1px);
+    }
   }
-  &::after {
-    border-top-color: #fff;
-    top: calc(100% - 1px);
+  &.position-top {
+    transform: translateY(-100%);
+    margin-top: -10px;
+
+    &::before {
+      top: 100%;
+      border-top-color: $border-color;
+    }
+    &::after {
+      border-top-color: #fff;
+      top: calc(100% - 1px);
+    }
+  }
+  &.position-left {
+    transform: translateX(-100%);
+    margin-right: -10px;
+
+    &::before {
+      left: 100%;
+      border-left-color: $border-color;
+    }
+    &::after {
+      border-left-color: #fff;
+      left: calc(100% - 1px);
+    }
+  }
+  &.position-right {
+    transform: translateX(65%);
+    /* margin-left: 10px; */
+
+    &::before {
+      left: -12%;
+      border-right-color: $border-color;
+    }
+    &::after {
+      border-right-color: #fff;
+      left: calc(-12% + 2px);
+    }
   }
 }
 </style>

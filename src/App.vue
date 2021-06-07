@@ -117,9 +117,13 @@
     >
       <my-button>点我呀</my-button>
     </my-popover>
-    <my-popover
-      content="zxcxfsflasjlksjdkshfgieuqwioeuoqwuewqwertyuiopasdfghjklznxbvmcdjfksiouriwqywq"
-    >
+    <my-popover content="zuoqwuewqwerty" position="bottom">
+      <my-button>点我呀</my-button>
+    </my-popover>
+    <my-popover content="zuoqwuewqwerty" position="left">
+      <my-button>点我呀</my-button>
+    </my-popover>
+    <my-popover content="zuoqwuewqwerty" position="right">
       <my-button>点我呀</my-button>
     </my-popover>
   </div>
