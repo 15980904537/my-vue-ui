@@ -25,21 +25,27 @@ export default {
     };
   },
   mounted() {
-    this.eventBus.$on("updated:selected", (select) => {
+    this.eventBus.$on("update:selected", (select) => {
       if (select !== this.name) {
-        this.visible = false;
+        this.close();
       } else {
-        this.visible = true;
+        this.open();
       }
     });
   },
   methods: {
+    close() {
+      this.visible = false;
+    },
+    open() {
+      this.visible = true;
+    },
     onClick() {
       if (this.visible === true) {
-        this.visible = false;
+        this.close();
       } else {
-        this.visible = true;
-        this.eventBus.$emit("updated:selected", this.name);
+        this.open();
+        this.eventBus.$emit("update:selected", this.name);
       }
 
       // this.visible = !this.visible;

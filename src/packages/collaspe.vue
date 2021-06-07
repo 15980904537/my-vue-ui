@@ -29,7 +29,11 @@ export default {
   },
 
   mounted() {
-    this.eventBus.$emit("updated:selected", this.selected);
+    this.eventBus.$emit("update:selected", this.selected);
+    this.eventBus.$on("update:selected", (select) => {
+      //监听外界selected的变化
+      this.$emit("update:selected", select);
+    });
   },
 
   methods: {},
