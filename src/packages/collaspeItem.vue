@@ -1,7 +1,7 @@
 <template>
   <div class="collaspe-item">
-    <div class="title">{{ title }}</div>
-    <div class="content">
+    <div class="title" @click="onClick">{{ title }}</div>
+    <div class="content" v-if="visible">
       <slot></slot>
     </div>
   </div>
@@ -19,12 +19,19 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      visible: true,
+    };
   },
 
   components: {},
 
   computed: {},
+  methods: {
+    onClick() {
+      this.visible = !this.visible;
+    },
+  },
 };
 </script>
 <style lang='scss' scoped>
@@ -36,20 +43,30 @@ $height: 32px;
     min-height: $height;
     margin-left: -1px;
     margin-right: -1px;
+    margin-top: -1px;
     padding: 0.5em 1em;
     display: flex;
     align-items: center;
-    &:first-child {
-      margin-top: -1px;
-      border-top-left-radius: 4px;
-      border-top-right-radius: 4px;
-    }
+    cursor: pointer;
   }
   .content {
     display: flex;
     align-items: center;
     min-height: $height;
     padding: 0.5em 1em;
+  }
+  &:first-child {
+    .title {
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+    }
+  }
+  &:last-child {
+    .title {
+      margin-bottom: -1px;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
   }
 }
 </style>
