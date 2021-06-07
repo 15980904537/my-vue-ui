@@ -18,18 +18,31 @@ export default {
       type: String,
     },
   },
+  inject: ["eventBus"],
   data() {
     return {
-      visible: true,
+      visible: false,
     };
   },
-
-  components: {},
-
-  computed: {},
+  mounted() {
+    this.eventBus.$on("updated:selected", (select) => {
+      if (select !== this.name) {
+        this.visible = false;
+      } else {
+        this.visible = true;
+      }
+    });
+  },
   methods: {
     onClick() {
-      this.visible = !this.visible;
+      if (this.visible === true) {
+        this.visible = false;
+      } else {
+        this.visible = true;
+        this.eventBus.$emit("updated:selected", this.name);
+      }
+
+      // this.visible = !this.visible;
     },
   },
 };

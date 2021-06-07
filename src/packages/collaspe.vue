@@ -5,24 +5,32 @@
 </template>
 
 <script>
+import Vue from "vue";
 export default {
   name: "my-collaspe",
   props: {
     selected: {
       type: String,
     },
+    single: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  provide() {
+    return {
+      eventBus: this.eventBus,
+    };
   },
   data() {
-    return {};
+    return {
+      eventBus: new Vue(),
+    };
   },
 
-  components: {},
-
-  computed: {},
-
-  beforeMount() {},
-
-  mounted() {},
+  mounted() {
+    this.eventBus.$emit("updated:selected", this.selected);
+  },
 
   methods: {},
 

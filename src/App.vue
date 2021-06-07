@@ -165,11 +165,12 @@
     >
       <my-button>点我呀</my-button>
     </my-popover> -->
-    <my-collaspe selected="selectTab">
-      <my-collaspe-item title="标题一" name="1">内容二</my-collaspe-item>
+    <my-collaspe :selected.sync="selectTab" single>
+      <my-collaspe-item title="标题一" name="1">内容一</my-collaspe-item>
       <my-collaspe-item title="标题二" name="2">内容二</my-collaspe-item>
       <my-collaspe-item title="标题三" name="3">内容三</my-collaspe-item>
     </my-collaspe>
+    {{ selectTab }}
   </div>
 </template>
 
