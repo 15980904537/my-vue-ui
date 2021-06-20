@@ -172,17 +172,19 @@
     </my-collaspe> -->
     <!-- {{ selectTab }} -->
 
-    <my-cascader
-      :source="source"
-      :height="100"
-      :selected="selected"
-      @update:selected="selected = $event"
-    >
+    <my-cascader :source="source" :height="200" :selected.sync="selected">
     </my-cascader>
   </div>
 </template>
 
 <script>
+import db from "./packages/db";
+function ajax(default_id = 0) {
+  return db.filter((item) => {
+    return item.TopID === default_id;
+  });
+}
+console.log(ajax);
 export default {
   name: "App",
   data() {
@@ -190,56 +192,7 @@ export default {
       message: "hahha",
       selectedTab: "sport",
       selectTab: ["1"],
-      source: [
-        {
-          name: "浙江",
-          children: [
-            {
-              name: "杭州",
-              children: [
-                {
-                  name: "沙洲区",
-                },
-              ],
-            },
-            {
-              name: "湖州",
-              children: [
-                {
-                  name: "思民区",
-                },
-              ],
-            },
-          ],
-        },
-        {
-          name: "福建",
-          children: [
-            {
-              name: "厦门",
-              children: [
-                {
-                  name: "思民区",
-                },
-                {
-                  name: "海沧区",
-                },
-                {
-                  name: "集美区",
-                },
-              ],
-            },
-            {
-              name: "泉州",
-              children: [
-                {
-                  name: "鲤鱼区",
-                },
-              ],
-            },
-          ],
-        },
-      ],
+      source: ajax(),
       selected: [],
     };
   },

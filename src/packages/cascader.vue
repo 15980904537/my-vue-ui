@@ -1,7 +1,7 @@
 <template>
   <div class="cascader">
     <div class="trigger" @click="popoverVisible = !popoverVisible">
-      <slot>{{ result || "&nbsp" }}</slot>
+      <slot>{{ result || "&nbsp" }} </slot>
     </div>
     <div class="popover-wrapper" v-if="popoverVisible">
       <my-cascader-item

@@ -91,6 +91,7 @@ export default {
   display: flex;
   .left {
     padding: 0.3em 0;
+    overflow: auto;
     /* @include box-shadow2; */
   }
   .right {
