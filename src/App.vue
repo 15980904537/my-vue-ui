@@ -172,7 +172,7 @@
     </my-collaspe> -->
     <!-- {{ selectTab }} -->
 
-    <my-cascader :source="source"> </my-cascader>
+    <my-cascader :source="source" :height="100"> </my-cascader>
   </div>
 </template>
 
@@ -262,4 +262,5 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+</style>
