@@ -29,6 +29,9 @@ export default {
     selected: {
       type: Array,
     },
+    loadData: {
+      type: Function,
+    },
   },
   data() {
     return {
@@ -51,6 +54,14 @@ export default {
   methods: {
     onUpdateSelected(newSelect) {
       this.$emit("update:selected", newSelect);
+      let lastItem = newSelect[newSelect.length - 1];
+
+      const updateSource = (result) => {
+        let toUpdate = this.source.filter((item) => item.id === lastItem.id)[0];
+        this.$set(toUpdate, "children", result);
+      };
+      //加载数据
+      this.loadData(lastItem, updateSource);
     },
   },
 

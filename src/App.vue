@@ -172,16 +172,34 @@
     </my-collaspe> -->
     <!-- {{ selectTab }} -->
 
-    <my-cascader :source="source" :height="200" :selected.sync="selected">
+    <my-cascader
+      :source="source"
+      :height="200"
+      :selected.sync="selected"
+      :load-data="loadData"
+    >
     </my-cascader>
   </div>
 </template>
 
 <script>
 import db from "./packages/db";
+// function ajax(default_id = 0) {
+//   return db.filter((item) => {
+//     return item.TopID === default_id;
+//   });
+// }
+
+//异步的ajax
 function ajax(default_id = 0) {
-  return db.filter((item) => {
-    return item.TopID === default_id;
+  return new Promise((success, fail) => {
+    let result;
+    setTimeout(() => {
+      result = db.filter((item) => {
+        return item.TopID === default_id;
+      });
+      success(result);
+    }, 3000);
   });
 }
 console.log(ajax);
@@ -192,9 +210,14 @@ export default {
       message: "hahha",
       selectedTab: "sport",
       selectTab: ["1"],
-      source: ajax(),
+      source: [],
       selected: [],
     };
+  },
+  created() {
+    ajax().then((result) => {
+      this.source = result;
+    });
   },
   methods: {
     yyy() {
@@ -218,6 +241,24 @@ export default {
         },
       });
     },
+    loadData(lastItem, callback) {
+      let { ID } = lastItem;
+      ajax(ID).then((result) => {
+        console.log(result);
+        callback(result);
+      });
+    },
+    // xxx() {
+    //   ajax(this.selected[0].ID).then((result) => {
+    //     let lastLevelSelected = this.source.filter(
+    //       (item) => item.ID === this.selected[0].ID
+    //     )[0];
+    //     this.$set(lastLevelSelected, "children", result);
+    //     // lastLevelSelected.children = result;
+    //     // console.log(lastLevelSelected);
+    //     // console.log(result);
+    //   });
+    // },
   },
 };
 </script>
