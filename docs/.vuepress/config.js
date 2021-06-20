@@ -1,12 +1,8 @@
 module.exports = {
     title: 'Hello VuePress',
+    base:'/frank-test-1/',
     description: 'Just playing around',
     themeConfig: {
-        nav: [
-            { text: 'Home'},
-            { text: 'Guide' },
-            { text: 'External'},
-        ],
         sidebar: [
             {
                 title: '入门',
@@ -15,7 +11,6 @@ module.exports = {
             },
             {
                 title: '组件',   // 必要的
-                
                 children: [
                     '/components/button'
                 ]
