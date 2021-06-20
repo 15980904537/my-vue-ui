@@ -10,14 +10,20 @@
         class="label"
         v-for="(itemarr, index1) in item"
         :key="index1"
-        @click="selectItem = itemarr"
+        @click="clickLabel(itemarr)"
       >
         {{ itemarr.name }}
         <my-icon v-if="itemarr.children" icon="jiantou" class="arrow"></my-icon>
       </div>
     </div>
     <div class="right" v-if="rightItem">
-      <my-cascader-item :item="rightItem" :height="height"></my-cascader-item>
+      <my-cascader-item
+        :item="rightItem"
+        :height="height"
+        :level="level + 1"
+        :selected="selected"
+        @update:selected="onUpdateSelected"
+      ></my-cascader-item>
     </div>
   </div>
 </template>
@@ -32,10 +38,18 @@ export default {
     height: {
       type: Number,
     },
+    selected: {
+      type: Array,
+    },
+    level: {
+      type: Number,
+      default: 0,
+    },
   },
   data() {
     return {
       selectItem: null,
+      copy: [],
     };
   },
 
@@ -43,8 +57,9 @@ export default {
 
   computed: {
     rightItem() {
-      if (this.selectItem && this.selectItem.children) {
-        return this.selectItem.children;
+      let currentSelected = this.copy[this.level];
+      if (currentSelected && currentSelected.children) {
+        return currentSelected.children;
       } else {
         return null;
       }
@@ -55,7 +70,16 @@ export default {
 
   mounted() {},
 
-  methods: {},
+  methods: {
+    clickLabel(item) {
+      this.copy = JSON.parse(JSON.stringify(this.selected));
+      this.copy[this.level] = item;
+      this.$emit("update:selected", this.copy);
+    },
+    onUpdateSelected(newSelect) {
+      this.$emit("update:selected", newSelect);
+    },
+  },
 
   watch: {},
 };

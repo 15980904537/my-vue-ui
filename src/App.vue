@@ -171,8 +171,14 @@
       <my-collaspe-item title="标题三" name="3">内容三</my-collaspe-item>
     </my-collaspe> -->
     <!-- {{ selectTab }} -->
-
-    <my-cascader :source="source" :height="100"> </my-cascader>
+    {{ selected }}
+    <my-cascader
+      :source="source"
+      :height="100"
+      :selected="selected"
+      @update:selected="selected = $event"
+    >
+    </my-cascader>
   </div>
 </template>
 
@@ -234,6 +240,7 @@ export default {
           ],
         },
       ],
+      selected: [],
     };
   },
   methods: {
