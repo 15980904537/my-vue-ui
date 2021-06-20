@@ -1,8 +1,16 @@
 <template>
-  <div>
-    {{ item.name }}
-    <div v-for="(item1, index1) in item.children" :key="index1">
-      <my-cascader-item :item="item1" v-if="item.children"></my-cascader-item>
+  <div class="popoverItem">
+    <div class="left">
+      <div
+        v-for="(itemarr, index1) in item"
+        :key="index1"
+        @click="selectItem = itemarr"
+      >
+        {{ itemarr.name }}
+      </div>
+    </div>
+    <div class="right" v-if="rightItem">
+      <my-cascader-item :item="rightItem"></my-cascader-item>
     </div>
   </div>
 </template>
@@ -12,16 +20,26 @@ export default {
   name: "my-cascader-item",
   props: {
     item: {
-      type: Object,
+      type: Array,
     },
   },
   data() {
-    return {};
+    return {
+      selectItem: null,
+    };
   },
 
   components: {},
 
-  computed: {},
+  computed: {
+    rightItem() {
+      if (this.selectItem && this.selectItem.children) {
+        return this.selectItem.children;
+      } else {
+        return null;
+      }
+    },
+  },
 
   beforeMount() {},
 
@@ -32,4 +50,14 @@ export default {
   watch: {},
 };
 </script>
-<style lang="" scoped></style>
+<style lang="scss" scoped>
+.popoverItem {
+  display: flex;
+
+  .left {
+  }
+  .right {
+    margin-top: -1px;
+  }
+}
+</style>

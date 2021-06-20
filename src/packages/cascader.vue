@@ -3,8 +3,8 @@
     <div class="trigger">
       <slot></slot>
     </div>
-    <div v-for="(item, index) in source" :key="index">
-      <my-cascader-item :item="item"></my-cascader-item>
+    <div class="popover">
+      <my-cascader-item :item="source"></my-cascader-item>
     </div>
   </div>
 </template>
@@ -35,4 +35,14 @@ export default {
   watch: {},
 };
 </script>
-<style lang="" scoped></style>
+<style lang="scss" scoped>
+$height: 32px;
+.trigger {
+  width: 16em;
+  border: 1px solid #ddd;
+  height: $height;
+}
+.popover {
+  border: 1px solid red;
+}
+</style>
