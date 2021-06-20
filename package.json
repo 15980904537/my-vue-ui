@@ -5,8 +5,9 @@
     "scripts": {
         "serve": "vue-cli-service serve",
         "build": "vue-cli-service build",
-        "test:unit": "vue-cli-service test:unit --watch"
-
+        "test:unit": "vue-cli-service test:unit --watch",
+        "docs:dev": "vuepress dev docs",
+        "docs:build": "vuepress build docs"
     },
     "dependencies": {
         "core-js": "^3.6.5",
@@ -14,7 +15,7 @@
         "sinon": "^10.0.0",
         "sinon-chai": "^3.6.0",
         "style-loader": "^2.0.0",
-        "vue": "^2.6.11"
+        "vue": "2.6.14"
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "~4.5.0",
@@ -25,6 +26,8 @@
         "mocha": "^6.2.3",
         "mochapack": "^1.1.15",
         "sass-loader": "^7.1.0",
-        "vue-template-compiler": "^2.6.11"
+        "vue-server-renderer": "^2.6.11",
+        "vue-template-compiler": "^2.6.14",
+        "vuepress": "^1.8.2"
     }
 }

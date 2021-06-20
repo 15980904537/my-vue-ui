@@ -91,7 +91,7 @@
       @update:selected="selectedTab = $event"
     ></my-tabs-head> -->
 
-    <!-- <my-tabs :selected.sync="selectedTab" direction="horizontal">
+    <my-tabs :selected.sync="selectedTab" direction="horizontal">
       <my-tabs-head>
         <my-tabs-item name="sport" disabled>
           <my-icon icon="add"></my-icon>
@@ -108,7 +108,7 @@
         <my-tabs-pane name="image">图片资讯</my-tabs-pane>
         <my-tabs-pane name="music">音乐资讯</my-tabs-pane>
       </my-tabs-body>
-    </my-tabs> -->
+    </my-tabs>
 
     <!-- <my-popover
       content="这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!"
