@@ -57,7 +57,7 @@ export default {
 
   computed: {
     rightItem() {
-      let currentSelected = this.copy[this.level];
+      let currentSelected = this.selected[this.level];
       if (currentSelected && currentSelected.children) {
         return currentSelected.children;
       } else {
@@ -74,6 +74,7 @@ export default {
     clickLabel(item) {
       this.copy = JSON.parse(JSON.stringify(this.selected));
       this.copy[this.level] = item;
+      this.copy.splice(this.level + 1);
       this.$emit("update:selected", this.copy);
     },
     onUpdateSelected(newSelect) {
