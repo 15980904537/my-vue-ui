@@ -91,7 +91,7 @@
       @update:selected="selectedTab = $event"
     ></my-tabs-head> -->
 
-    <my-tabs :selected.sync="selectedTab" direction="horizontal">
+    <!-- <my-tabs :selected.sync="selectedTab" direction="horizontal">
       <my-tabs-head>
         <my-tabs-item name="sport" disabled>
           <my-icon icon="add"></my-icon>
@@ -108,7 +108,7 @@
         <my-tabs-pane name="image">图片资讯</my-tabs-pane>
         <my-tabs-pane name="music">音乐资讯</my-tabs-pane>
       </my-tabs-body>
-    </my-tabs>
+    </my-tabs> -->
 
     <!-- <my-popover
       content="这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!这是一段文字!"
@@ -165,12 +165,14 @@
     >
       <my-button>点我呀</my-button>
     </my-popover> -->
-    <my-collaspe :selected.sync="selectTab">
+    <!-- <my-collaspe :selected.sync="selectTab">
       <my-collaspe-item title="标题一" name="1">内容一</my-collaspe-item>
       <my-collaspe-item title="标题二" name="2">内容二</my-collaspe-item>
       <my-collaspe-item title="标题三" name="3">内容三</my-collaspe-item>
-    </my-collaspe>
-    {{ selectTab }}
+    </my-collaspe> -->
+    <!-- {{ selectTab }} -->
+
+    <my-cascader :source="source"> </my-cascader>
   </div>
 </template>
 
@@ -182,6 +184,56 @@ export default {
       message: "hahha",
       selectedTab: "sport",
       selectTab: ["1"],
+      source: [
+        {
+          name: "浙江",
+          children: [
+            {
+              name: "杭州",
+              children: [
+                {
+                  name: "沙洲区",
+                },
+              ],
+            },
+            {
+              name: "湖州",
+              children: [
+                {
+                  name: "思民区",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: "福建",
+          children: [
+            {
+              name: "厦门",
+              children: [
+                {
+                  name: "思民区",
+                },
+                {
+                  name: "海沧区",
+                },
+                {
+                  name: "集美区",
+                },
+              ],
+            },
+            {
+              name: "泉州",
+              children: [
+                {
+                  name: "鲤鱼区",
+                },
+              ],
+            },
+          ],
+        },
+      ],
     };
   },
   methods: {

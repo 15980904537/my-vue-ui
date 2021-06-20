@@ -12,6 +12,7 @@
     "dependencies": {
         "core-js": "^3.6.5",
         "node-sass": "^4.14.1",
+        "serve": "^12.0.0",
         "sinon": "^10.0.0",
         "sinon-chai": "^3.6.0",
         "style-loader": "^2.0.0",

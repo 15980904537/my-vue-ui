@@ -76,12 +76,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "../style/common.scss";
-$height: 42px;
-$font-size: 16px;
-$color: #606266;
-$border-color: #dcdfe6;
-$background: #ecf5ff;
 $active-color: #3a8ee6;
+$background: #ecf5ff;
+$border-color: #dcdfe6;
+$color: #606266;
+$font-size: 16px;
+$height: 42px;
 .my-button {
   border-radius: $border-radius;
   background: #fff;
