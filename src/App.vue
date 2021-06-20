@@ -171,7 +171,7 @@
       <my-collaspe-item title="标题三" name="3">内容三</my-collaspe-item>
     </my-collaspe> -->
     <!-- {{ selectTab }} -->
-    {{ selected }}
+
     <my-cascader
       :source="source"
       :height="100"

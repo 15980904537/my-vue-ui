@@ -1,7 +1,7 @@
 <template>
   <div class="cascader">
     <div class="trigger" @click="popoverVisible = !popoverVisible">
-      <slot></slot>
+      <slot>{{ result || "&nbsp" }}</slot>
     </div>
     <div class="popover-wrapper" v-if="popoverVisible">
       <my-cascader-item
@@ -38,7 +38,11 @@ export default {
 
   components: { myCascaderItem },
 
-  computed: {},
+  computed: {
+    result() {
+      return this.selected.map((item) => item.name).join("/");
+    },
+  },
 
   beforeMount() {},
 
@@ -60,9 +64,12 @@ $height: 32px;
   position: relative;
 
   .trigger {
+    display: inline-flex;
+    align-items: center;
     width: 16em;
     border: 1px solid #ddd;
     height: $height;
+    padding: 0 0.8em;
   }
   .popover-wrapper {
     position: absolute;
