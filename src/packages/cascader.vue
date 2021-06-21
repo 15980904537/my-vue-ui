@@ -1,5 +1,5 @@
 <template>
-  <div class="cascader" ref="cascader">
+  <div class="cascader" ref="cascader" v-clickOutside="close">
     <div class="trigger" @click="cascaderVisible">
       <slot>{{ result || "&nbsp" }} </slot>
     </div>
@@ -121,11 +121,12 @@ export default {
       document.addEventListener("click", this.clickDocument);
     },
     cascaderVisible() {
-      if (this.popoverVisible === true) {
-        this.close();
-      } else {
-        this.show();
-      }
+      this.popoverVisible = !this.popoverVisible;
+      // if (this.popoverVisible === true) {
+      //   this.close();
+      // } else {
+      //   this.show();
+      // }
     },
   },
 };
@@ -135,7 +136,7 @@ export default {
 $height: 32px;
 .cascader {
   position: relative;
-
+  display: inline-block;
   .trigger {
     display: inline-flex;
     align-items: center;

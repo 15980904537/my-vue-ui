@@ -217,59 +217,9 @@ export default {
     };
   },
   created() {
-    // ajax().then((result) => {
-    //   this.source = result;
-    // });
-    this.source = [
-      {
-        name: "浙江",
-        children: [
-          {
-            name: "杭州",
-            children: [
-              {
-                name: "沙洲区",
-              },
-            ],
-          },
-          {
-            name: "湖州",
-            children: [
-              {
-                name: "思民区",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        name: "福建",
-        children: [
-          {
-            name: "厦门",
-            children: [
-              {
-                name: "思民区",
-              },
-              {
-                name: "海沧区",
-              },
-              {
-                name: "集美区",
-              },
-            ],
-          },
-          {
-            name: "泉州",
-            children: [
-              {
-                name: "鲤鱼区",
-              },
-            ],
-          },
-        ],
-      },
-    ];
+    ajax().then((result) => {
+      this.source = result;
+    });
   },
   methods: {
     yyy() {
