@@ -1,6 +1,6 @@
 <template>
-  <div class="cascader">
-    <div class="trigger" @click="popoverVisible = !popoverVisible">
+  <div class="cascader" ref="cascader">
+    <div class="trigger" @click="cascaderVisible">
       <slot>{{ result || "&nbsp" }} </slot>
     </div>
     <div class="popover-wrapper" v-if="popoverVisible">
@@ -101,6 +101,30 @@ export default {
       //加载数据
       if (!lastItem.isLeaf) {
         this.loadData && this.loadData(lastItem, updateSource);
+      }
+    },
+    clickDocument(e) {
+      if (
+        e.target === this.$refs.cascaderVisible ||
+        this.$refs.cascader.contains(e.target)
+      ) {
+        return;
+      }
+      this.close();
+    },
+    close() {
+      this.popoverVisible = false;
+      document.removeEventListener("click", this.clickDocument);
+    },
+    show() {
+      this.popoverVisible = true;
+      document.addEventListener("click", this.clickDocument);
+    },
+    cascaderVisible() {
+      if (this.popoverVisible === true) {
+        this.close();
+      } else {
+        this.show();
       }
     },
   },
