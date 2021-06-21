@@ -12,8 +12,14 @@
         :key="index1"
         @click="clickLabel(itemarr)"
       >
-        {{ itemarr.name }}
-        <my-icon v-if="itemarr.children" icon="jiantou" class="arrow"></my-icon>
+        <span class="name">
+          {{ itemarr.name }}
+        </span>
+        <my-icon
+          v-if="arrowVisible(itemarr)"
+          icon="jiantou"
+          class="arrow"
+        ></my-icon>
       </div>
     </div>
     <div class="right" v-if="rightItem">
@@ -44,6 +50,9 @@ export default {
     level: {
       type: Number,
       default: 0,
+    },
+    loadData: {
+      type: Function,
     },
   },
   data() {
@@ -91,6 +100,9 @@ export default {
     onUpdateSelected(newSelect) {
       this.$emit("update:selected", newSelect);
     },
+    arrowVisible(itemarr) {
+      return this.loadData ? !itemarr.isLeaf : itemarr.children;
+    },
   },
 
   watch: {},
@@ -114,10 +126,13 @@ export default {
     display: flex;
     align-items: center;
     padding: 0.3em 1em;
+    .name {
+      margin-right: 1em;
+    }
     .arrow {
       width: 12px;
       height: 12px;
-      margin-left: 8px;
+      margin-left: auto;
     }
   }
 }

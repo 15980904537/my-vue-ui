@@ -172,12 +172,7 @@
     </my-collaspe> -->
     <!-- {{ selectTab }} -->
 
-    <my-cascader
-      :source.sync="source"
-      :height="200"
-      :selected.sync="selected"
-      :load-data="loadData"
-    >
+    <my-cascader :source.sync="source" :height="200" :selected.sync="selected">
     </my-cascader>
   </div>
 </template>
@@ -198,8 +193,15 @@ function ajax(default_id = 0) {
       result = db.filter((item) => {
         return item.TopID === default_id;
       });
+      result.forEach((node) => {
+        if (db.filter((item) => item.TopID === node.ID).length > 0) {
+          node.isLeaf = false;
+        } else {
+          node.isLeaf = true;
+        }
+      });
       success(result);
-    }, 3000);
+    }, 1000);
   });
 }
 
@@ -215,9 +217,59 @@ export default {
     };
   },
   created() {
-    ajax().then((result) => {
-      this.source = result;
-    });
+    // ajax().then((result) => {
+    //   this.source = result;
+    // });
+    this.source = [
+      {
+        name: "浙江",
+        children: [
+          {
+            name: "杭州",
+            children: [
+              {
+                name: "沙洲区",
+              },
+            ],
+          },
+          {
+            name: "湖州",
+            children: [
+              {
+                name: "思民区",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: "福建",
+        children: [
+          {
+            name: "厦门",
+            children: [
+              {
+                name: "思民区",
+              },
+              {
+                name: "海沧区",
+              },
+              {
+                name: "集美区",
+              },
+            ],
+          },
+          {
+            name: "泉州",
+            children: [
+              {
+                name: "鲤鱼区",
+              },
+            ],
+          },
+        ],
+      },
+    ];
   },
   methods: {
     yyy() {

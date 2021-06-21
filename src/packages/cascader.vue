@@ -10,6 +10,7 @@
         :height="height"
         :selected="selected"
         @update:selected="onUpdateSelected"
+        :loadData="loadData"
       ></my-cascader-item>
     </div>
   </div>
@@ -98,7 +99,9 @@ export default {
         // this.$set(toUpdate, "children", result);
       };
       //加载数据
-      this.loadData(lastItem, updateSource);
+      if (!lastItem.isLeaf) {
+        this.loadData && this.loadData(lastItem, updateSource);
+      }
     },
   },
 };
