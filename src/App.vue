@@ -172,7 +172,12 @@
     </my-collaspe> -->
     <!-- {{ selectTab }} -->
 
-    <my-cascader :source.sync="source" :height="200" :selected.sync="selected">
+    <my-cascader
+      :source.sync="source"
+      :height="200"
+      :selected.sync="selected"
+      :loadData="loadData"
+    >
     </my-cascader>
   </div>
 </template>

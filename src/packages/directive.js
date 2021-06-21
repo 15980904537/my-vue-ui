@@ -15,7 +15,7 @@ document.addEventListener('click', onClickDocument)
 
 export default Vue.directive('clickOutside', {
     bind(el,binding,vnode) { 
-        console.log(el, binding, vnode)
+       
         callback.push({
             el,
             callback: binding.value

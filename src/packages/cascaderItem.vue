@@ -15,11 +15,16 @@
         <span class="name">
           {{ itemarr.name }}
         </span>
-        <my-icon
-          v-if="arrowVisible(itemarr)"
-          icon="jiantou"
-          class="arrow"
-        ></my-icon>
+        <template v-if="loadItem.name === itemarr.name">
+          <my-icon class="loading" icon="loading1"></my-icon>
+        </template>
+        <template v-else>
+          <my-icon
+            v-if="arrowVisible(itemarr)"
+            icon="jiantou"
+            class="arrow"
+          ></my-icon>
+        </template>
       </div>
     </div>
     <div class="right" v-if="rightItem">
@@ -28,7 +33,9 @@
         :height="height"
         :level="level + 1"
         :selected="selected"
+        :loadData="loadData"
         @update:selected="onUpdateSelected"
+        :loadItem="loadItem"
       ></my-cascader-item>
     </div>
   </div>
@@ -54,6 +61,9 @@ export default {
     loadData: {
       type: Function,
     },
+    loadItem: {
+      type: Object,
+    },
   },
   data() {
     return {
@@ -76,13 +86,6 @@ export default {
           return item[0].children;
         }
       }
-
-      // let currentSelected = this.selected[this.level];
-      // if (currentSelected && currentSelected.children) {
-      //   return currentSelected.children;
-      // } else {
-      //   return null;
-      // }
     },
   },
 
@@ -126,6 +129,7 @@ export default {
     display: flex;
     align-items: center;
     padding: 0.3em 1em;
+    white-space: nowrap;
     .name {
       margin-right: 1em;
     }
@@ -133,6 +137,21 @@ export default {
       width: 12px;
       height: 12px;
       margin-left: auto;
+    }
+    .loading {
+      color: #eee;
+      width: 12px;
+      height: 12px;
+      margin-left: auto;
+      animation: spin 1s infinite linear;
+    }
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
     }
   }
 }

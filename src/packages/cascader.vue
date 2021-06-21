@@ -11,6 +11,7 @@
         :selected="selected"
         @update:selected="onUpdateSelected"
         :loadData="loadData"
+        :loadItem="loadItem"
       ></my-cascader-item>
     </div>
   </div>
@@ -37,6 +38,7 @@ export default {
   data() {
     return {
       popoverVisible: false,
+      loadItem: {},
     };
   },
 
@@ -66,14 +68,12 @@ export default {
           if (item.children) {
             hasChildren.push(item);
           } else {
-            console.log("没有children");
             noChildren.push(item);
           }
         });
         let found = simplest(noChildren, id);
         console.log(found);
         if (found) {
-          console.log("有found");
           return found;
         } else {
           found = simplest(hasChildren, id);
@@ -91,7 +91,7 @@ export default {
         }
       };
       const updateSource = (result) => {
-        console.log(lastItem);
+        this.loadItem = {};
         let copy = JSON.parse(JSON.stringify(this.source));
         let toUpdate = complex(copy, lastItem.ID);
         toUpdate.children = result;
@@ -101,6 +101,7 @@ export default {
       //加载数据
       if (!lastItem.isLeaf) {
         this.loadData && this.loadData(lastItem, updateSource);
+        this.loadItem = lastItem;
       }
     },
     clickDocument(e) {
