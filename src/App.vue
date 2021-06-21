@@ -173,7 +173,7 @@
     <!-- {{ selectTab }} -->
 
     <my-cascader
-      :source="source"
+      :source.sync="source"
       :height="200"
       :selected.sync="selected"
       :load-data="loadData"
@@ -202,7 +202,7 @@ function ajax(default_id = 0) {
     }, 3000);
   });
 }
-console.log(ajax);
+
 export default {
   name: "App",
   data() {

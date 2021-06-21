@@ -55,17 +55,52 @@ export default {
     onUpdateSelected(newSelect) {
       this.$emit("update:selected", newSelect);
       let lastItem = newSelect[newSelect.length - 1];
-
+      const simplest = (children, id) => {
+        return children.filter((item) => item.ID === id)[0];
+      };
+      const complex = (children, id) => {
+        let noChildren = [],
+          hasChildren = [];
+        children.forEach((item) => {
+          if (item.children) {
+            hasChildren.push(item);
+          } else {
+            console.log("没有children");
+            noChildren.push(item);
+          }
+        });
+        let found = simplest(noChildren, id);
+        console.log(found);
+        if (found) {
+          console.log("有found");
+          return found;
+        } else {
+          found = simplest(hasChildren, id);
+          if (found) {
+            return found;
+          } else {
+            for (let i = 0; i < hasChildren.length; i++) {
+              found = complex(hasChildren[i].children, id);
+              if (found) {
+                return found;
+              }
+            }
+            return undefined;
+          }
+        }
+      };
       const updateSource = (result) => {
-        let toUpdate = this.source.filter((item) => item.id === lastItem.id)[0];
-        this.$set(toUpdate, "children", result);
+        console.log(lastItem);
+        let copy = JSON.parse(JSON.stringify(this.source));
+        let toUpdate = complex(copy, lastItem.ID);
+        toUpdate.children = result;
+        this.$emit("update:source", copy);
+        // this.$set(toUpdate, "children", result);
       };
       //加载数据
       this.loadData(lastItem, updateSource);
     },
   },
-
-  watch: {},
 };
 </script>
 <style lang="scss" scoped>
