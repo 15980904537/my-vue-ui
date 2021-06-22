@@ -180,7 +180,7 @@
     >
     </my-cascader> -->
 
-    <my-slider :selected.sync="selected" autoPlay>
+    <my-slider :selected.sync="selected" autoPlay reverse>
       <my-slider-item name="1">
         <div class="box">1</div>
       </my-slider-item>

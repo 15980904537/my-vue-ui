@@ -19,6 +19,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    reverse: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {};
@@ -35,23 +39,21 @@ export default {
   methods: {
     playAutomatically() {
       let names = this.$children.map((vm) => vm.name);
-      console.log(names);
       let index = names.indexOf(this.getSelected());
       const run = () => {
         if (index === names.length) {
           index = 0;
         }
+        if (index === -1) {
+          index = names.length - 1;
+        }
         this.$emit("update:selected", names[index]);
-        console.log("index");
-        console.log(index);
-        index++;
+        this.reverse ? index-- : index++;
         setTimeout(() => {
           run();
         }, 3000);
       };
-      setTimeout(() => {
-        run();
-      }, 3000);
+      run();
     },
     getSelected() {
       return this.selected || this.$children[0].name;
@@ -60,6 +62,11 @@ export default {
       let selected = this.getSelected();
       this.$children.forEach((vm) => {
         vm.selected = selected;
+        let names = this.$children.map((vm) => vm.name);
+
+        let oldindex = names.indexOf(vm.name);
+        let newIndex = names.indexOf(selected);
+        vm.reverse = oldindex > newIndex ? true : false;
       });
     },
   },

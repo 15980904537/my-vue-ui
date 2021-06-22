@@ -1,6 +1,6 @@
 <template>
   <transition name="slider">
-    <div class="my-slider-item" v-if="visible">
+    <div class="my-slider-item" v-if="visible" :class="{ reverse }">
       <slot></slot>
     </div>
   </transition>
@@ -17,6 +17,7 @@ export default {
   data() {
     return {
       selected: undefined,
+      reverse: true,
     };
   },
 
@@ -53,6 +54,15 @@ export default {
   transform: translateX(100%);
 }
 .slider-leave-to {
+  transform: translateX(-100%) scale(0.5);
+  opacity: 0;
+}
+.slider-enter.reverse {
+  transform: translateX(-100%);
+}
+.slider-leave-to.reverse {
+  transform: translateX(100%) scale(0.5);
+
   opacity: 0;
 }
 </style>
