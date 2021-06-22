@@ -180,7 +180,7 @@
     >
     </my-cascader> -->
 
-    <my-slider :selected="selected">
+    <my-slider :selected.sync="selected" autoPlay>
       <my-slider-item name="1">
         <div class="box">1</div>
       </my-slider-item>
@@ -234,19 +234,19 @@ export default {
     };
   },
   created() {
-    let n = 1;
-    const run = () => {
-      if (n > 3) {
-        n = 1;
-      }
-      this.selected = n.toString();
-      console.log(n);
-      n++;
-      setTimeout(() => {
-        run();
-      }, 3000);
-    };
-    run();
+    // let n = 1;
+    // const run = () => {
+    //   if (n > 3) {
+    //     n = 1;
+    //   }
+    //   this.selected = n.toString();
+    //   console.log(n);
+    //   n++;
+    //   setTimeout(() => {
+    //     run();
+    //   }, 3000);
+    // };
+    // run();
   },
   methods: {
     yyy() {
