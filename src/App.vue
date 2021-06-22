@@ -172,13 +172,25 @@
     </my-collaspe> -->
     <!-- {{ selectTab }} -->
 
-    <my-cascader
+    <!-- <my-cascader
       :source.sync="source"
       :height="200"
       :selected.sync="selected"
       :loadData="loadData"
     >
-    </my-cascader>
+    </my-cascader> -->
+
+    <my-slider :selected="selected">
+      <my-slider-item name="1">
+        <div class="box">1</div>
+      </my-slider-item>
+      <my-slider-item name="2">
+        <div class="box">2</div>
+      </my-slider-item>
+      <my-slider-item name="3">
+        <div class="box">3</div>
+      </my-slider-item>
+    </my-slider>
   </div>
 </template>
 
@@ -218,13 +230,23 @@ export default {
       selectedTab: "sport",
       selectTab: ["1"],
       source: [],
-      selected: [],
+      selected: "1",
     };
   },
   created() {
-    ajax().then((result) => {
-      this.source = result;
-    });
+    let n = 1;
+    const run = () => {
+      if (n > 3) {
+        n = 1;
+      }
+      this.selected = n.toString();
+      console.log(n);
+      n++;
+      setTimeout(() => {
+        run();
+      }, 3000);
+    };
+    run();
   },
   methods: {
     yyy() {
@@ -271,4 +293,10 @@ export default {
 </script>
 
 <style lang="scss">
+.box {
+  width: 200px;
+  height: 150px;
+  /* border: 1px solid red; */
+  background: #eee;
+}
 </style>
