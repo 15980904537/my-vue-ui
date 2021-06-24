@@ -25,8 +25,6 @@ export default {
 
   computed: {
     visible() {
-      console.log(`我的name是${this.name}`);
-      console.log(`我的方向是${this.reverse ? "反向" : "正向"}`);
       return this.name === this.selected;
     },
   },

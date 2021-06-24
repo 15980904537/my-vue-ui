@@ -1,10 +1,18 @@
 <template>
-  <div class="my-slider" @mouseenter="onmouseenter" @mouseleave="onmouseleave">
+  <div
+    class="my-slider"
+    @mouseenter="onmouseenter"
+    @mouseleave="onmouseleave"
+    @touchstart="ontouchStart"
+    @touchmove="ontouchMove"
+    @touchend="ontouchEnd"
+  >
     <div class="my-slider-window">
       <div class="my-slider-wrapper">
         <slot></slot>
       </div>
       <div class="my-slider-dots">
+        <span @click="select(selectedIndex - 1)"><</span>
         <span
           v-for="(item, index) in childrenlength"
           :key="index"
@@ -12,6 +20,7 @@
           :class="{ active: index === selectedIndex }"
           >{{ item }}</span
         >
+        <span @click="select(selectedIndex + 1)">></span>
       </div>
     </div>
   </div>
@@ -38,10 +47,11 @@ export default {
       lastSelectedIndex: undefined,
       childrenlength: 0,
       timeId: undefined,
+      touchStart: undefined,
+      flag: false,
     };
   },
   mounted() {
-    console.log(this.reverse);
     this.updatedChildren();
     if (this.autoPlay) {
       this.playAutomatically();
@@ -71,12 +81,7 @@ export default {
       const run = () => {
         let index = this.names.indexOf(this.getSelected());
         let newIndex = this.reverse ? index - 1 : index + 1;
-        if (newIndex === this.names.length) {
-          newIndex = 0;
-        }
-        if (newIndex === -1) {
-          newIndex = this.names.length - 1;
-        }
+
         this.select(newIndex);
         this.timeId = setTimeout(run, 3000);
       };
@@ -92,7 +97,40 @@ export default {
     onmouseleave() {
       this.playAutomatically();
     },
+    ontouchStart(e) {
+      this.flag = false;
+      this.pause();
+      this.touchStart = e.touches[0];
+    },
+    ontouchMove() {},
+    ontouchEnd(e) {
+      let touchEnd = e.changedTouches[0];
+      let { clientX: x1, clientY: y1 } = this.touchStart;
+      let { clientX: x2, clientY: y2 } = touchEnd;
+      let distant = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+      let detalY = Math.abs(y2 - y1);
+      let rate = distant / detalY;
+      this.flag = true;
+      if (rate > 2) {
+        if (x2 - x1 > 0) {
+          this.select(this.selectedIndex - 1);
+        } else {
+          this.select(this.selectedIndex + 1);
+        }
+        // this.flag = false;
+      }
+      // console.log("触摸结束");
+      this.$nextTick(() => {
+        this.playAutomatically();
+      });
+    },
     select(index) {
+      if (index === this.names.length) {
+        index = 0;
+      }
+      if (index === -1) {
+        index = this.names.length - 1;
+      }
       this.lastSelectedIndex = this.selectedIndex;
       this.$emit("update:selected", this.names[index]);
     },
@@ -102,7 +140,8 @@ export default {
       this.$children.forEach((vm) => {
         let reverse =
           this.lastSelectedIndex > this.selectedIndex ? true : false;
-        if (this.timeId) {
+        if (this.timeId || this.flag) {
+          console.log("flag", this.flag);
           if (
             this.lastSelectedIndex === this.$children.length - 1 &&
             this.selectedIndex === 0
@@ -138,6 +177,7 @@ export default {
     .my-slider-wrapper {
       position: relative;
       display: flex;
+      cursor: default;
     }
     .my-slider-dots {
       display: flex;
