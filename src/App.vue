@@ -191,7 +191,6 @@
         <div class="box">3</div>
       </my-slider-item>
     </my-slider>
-    {{ selected }}
   </div>
 </template>
 

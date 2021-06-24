@@ -101,18 +101,21 @@ export default {
       this.$children.forEach((vm) => {
         let reverse =
           this.lastSelectedIndex > this.selectedIndex ? true : false;
-        if (
-          this.lastSelectedIndex === this.$children.length - 1 &&
-          this.selectedIndex === 0
-        ) {
-          reverse = false;
+        if (this.timeId) {
+          if (
+            this.lastSelectedIndex === this.$children.length - 1 &&
+            this.selectedIndex === 0
+          ) {
+            reverse = false;
+          }
+          if (
+            this.lastSelectedIndex === 0 &&
+            this.selectedIndex === this.$children.length - 1
+          ) {
+            reverse = true;
+          }
         }
-        if (
-          this.lastSelectedIndex === 0 &&
-          this.selectedIndex === this.$children.length - 1
-        ) {
-          reverse = true;
-        }
+
         vm.reverse = reverse;
         this.$nextTick(() => {
           vm.selected = selected;
@@ -127,7 +130,7 @@ export default {
 <style lang='scss' scoped>
 .my-slider {
   /* display: inline-block; */
-  border: 1px solid red;
+  /* border: 1px solid red; */
   overflow: hidden;
 
   .my-slider-window {
