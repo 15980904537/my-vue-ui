@@ -1,8 +1,16 @@
 <template>
-  <div class="my-slider">
+  <div class="my-slider" @mouseenter="onmouseenter" @mouseleave="onmouseleave">
     <div class="my-slider-window">
       <div class="my-slider-wrapper">
         <slot></slot>
+      </div>
+      <div class="my-slider-dots">
+        <span
+          v-for="(item, index) in childrenlength"
+          :key="index"
+          @click="select(index)"
+          >{{ index }}</span
+        >
       </div>
     </div>
   </div>
@@ -17,7 +25,7 @@ export default {
     },
     autoPlay: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     reverse: {
       type: Boolean,
@@ -25,48 +33,90 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      lastSelectedIndex: undefined,
+      childrenlength: 0,
+      timeId: undefined,
+    };
   },
   mounted() {
+    console.log(this.reverse);
     this.updatedChildren();
     if (this.autoPlay) {
       this.playAutomatically();
     }
+    this.childrenlength = this.$children.length;
   },
   updated() {
     this.updatedChildren();
   },
-  methods: {
-    playAutomatically() {
-      let names = this.$children.map((vm) => vm.name);
-      let index = names.indexOf(this.getSelected());
-      const run = () => {
-        if (index === names.length) {
-          index = 0;
-        }
-        if (index === -1) {
-          index = names.length - 1;
-        }
-        this.$emit("update:selected", names[index]);
-        this.reverse ? index-- : index++;
-        setTimeout(() => {
-          run();
-        }, 3000);
-      };
-      run();
+  computed: {
+    selectedIndex() {
+      return this.names.indexOf(this.selected) || 0;
     },
+    names() {
+      return this.$children.map((vm) => vm.name);
+    },
+  },
+  methods: {
     getSelected() {
       return this.selected || this.$children[0].name;
     },
+    playAutomatically() {
+      // console.log(index);
+      if (this.timeId) {
+        return;
+      }
+      const run = () => {
+        let index = this.names.indexOf(this.getSelected());
+        let newIndex = this.reverse ? index - 1 : index + 1;
+        if (newIndex === this.names.length) {
+          newIndex = 0;
+        }
+        if (newIndex === -1) {
+          newIndex = this.names.length - 1;
+        }
+        this.select(newIndex);
+        this.timeId = setTimeout(run, 3000);
+      };
+      this.timeId = setTimeout(run, 3000);
+    },
+    pause() {
+      window.clearTimeout(this.timeId);
+      this.timeId = undefined;
+    },
+    onmouseenter() {
+      this.pause();
+    },
+    onmouseleave() {
+      this.playAutomatically();
+    },
+    select(index) {
+      this.lastSelectedIndex = this.selectedIndex;
+      this.$emit("update:selected", this.names[index]);
+    },
+
     updatedChildren() {
       let selected = this.getSelected();
       this.$children.forEach((vm) => {
-        vm.selected = selected;
-        let names = this.$children.map((vm) => vm.name);
-
-        let oldindex = names.indexOf(vm.name);
-        let newIndex = names.indexOf(selected);
-        vm.reverse = oldindex > newIndex ? true : false;
+        let reverse =
+          this.lastSelectedIndex > this.selectedIndex ? true : false;
+        if (
+          this.lastSelectedIndex === this.$children.length - 1 &&
+          this.selectedIndex === 0
+        ) {
+          reverse = false;
+        }
+        if (
+          this.lastSelectedIndex === 0 &&
+          this.selectedIndex === this.$children.length - 1
+        ) {
+          reverse = true;
+        }
+        vm.reverse = reverse;
+        this.$nextTick(() => {
+          vm.selected = selected;
+        });
       });
     },
   },
@@ -76,11 +126,10 @@ export default {
 </script>
 <style lang='scss' scoped>
 .my-slider {
-  display: inline-block;
+  /* display: inline-block; */
   border: 1px solid red;
   overflow: hidden;
-  width: 200px;
-  height: 150px;
+
   .my-slider-window {
   }
   .my-slider-wrapper {

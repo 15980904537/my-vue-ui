@@ -180,7 +180,7 @@
     >
     </my-cascader> -->
 
-    <my-slider :selected.sync="selected" autoPlay reverse>
+    <my-slider :selected.sync="selected" autoPlay>
       <my-slider-item name="1">
         <div class="box">1</div>
       </my-slider-item>
@@ -191,6 +191,7 @@
         <div class="box">3</div>
       </my-slider-item>
     </my-slider>
+    {{ selected }}
   </div>
 </template>
 
@@ -292,11 +293,12 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scope>
 .box {
-  width: 200px;
-  height: 150px;
-  /* border: 1px solid red; */
+  width: 100%;
+  height: 250px;
+  text-align: center;
+  line-height: 250px;
   background: #eee;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <transition name="slider">
-    <div class="my-slider-item" v-if="visible" :class="{ reverse }">
+    <div class="my-slider-item" v-if="visible" :class="{ reverse: reverse }">
       <slot></slot>
     </div>
   </transition>
@@ -25,6 +25,8 @@ export default {
 
   computed: {
     visible() {
+      console.log(`我的name是${this.name}`);
+      console.log(`我的方向是${this.reverse ? "反向" : "正向"}`);
       return this.name === this.selected;
     },
   },
@@ -40,6 +42,8 @@ export default {
 </script>
 <style lang='scss' scoped>
 .my-slider-item {
+  width: 100%;
+  height: 100%;
 }
 .slider-leave-active {
   position: absolute;
@@ -62,7 +66,6 @@ export default {
 }
 .slider-leave-to.reverse {
   transform: translateX(100%) scale(0.5);
-
   opacity: 0;
 }
 </style>
