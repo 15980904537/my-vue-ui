@@ -9,7 +9,8 @@
           v-for="(item, index) in childrenlength"
           :key="index"
           @click="select(index)"
-          >{{ index }}</span
+          :class="{ active: index === selectedIndex }"
+          >{{ item }}</span
         >
       </div>
     </div>
@@ -134,10 +135,34 @@ export default {
   overflow: hidden;
 
   .my-slider-window {
-  }
-  .my-slider-wrapper {
-    position: relative;
-    display: flex;
+    .my-slider-wrapper {
+      position: relative;
+      display: flex;
+    }
+    .my-slider-dots {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      span {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #ddd;
+        color: #fff;
+        font-size: 12px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin: 10px;
+        &:hover {
+          cursor: pointer;
+        }
+        &.active {
+          background: #000;
+          cursor: default;
+        }
+      }
+    }
   }
 }
 </style>
