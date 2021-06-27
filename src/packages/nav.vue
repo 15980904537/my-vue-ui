@@ -7,6 +7,11 @@
 <script>
 export default {
   name: "my-nav",
+  provide() {
+    return {
+      root: this,
+    };
+  },
   props: {
     selected: {
       type: Array,
@@ -18,17 +23,19 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      items: [],
+    };
   },
 
   components: {},
 
   computed: {
-    items() {
-      return this.$children.filter(
-        (item) => item.$options.name === "my-nav-item"
-      );
-    },
+    // items() {
+    //   return this.$children.filter(
+    //     (item) => item.$options.name === "my-nav-item"
+    //   );
+    // },
   },
 
   mounted() {
@@ -41,7 +48,6 @@ export default {
   methods: {
     updateChildren() {
       this.items.forEach((vm) => {
-        console.log(vm);
         if (this.selected.indexOf(vm.item) >= 0) {
           vm.active = true;
         } else {
@@ -64,12 +70,18 @@ export default {
         });
       });
     },
+    addItems(item) {
+      this.items.push(item);
+    },
   },
 };
 </script>
 <style lang='scss' scoped>
+@import "./_var.scss";
 .my-nav {
   display: flex;
-  border: 1px solid red;
+  border-bottom: 1px solid $grey;
+  color: $color;
+  /* border: 1px solid red; */
 }
 </style>

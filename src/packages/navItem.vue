@@ -7,6 +7,7 @@
 <script>
 export default {
   name: "my-nav-item",
+  inject: ["root"],
   props: {
     item: {
       type: String,
@@ -25,12 +26,11 @@ export default {
   beforeMount() {},
 
   mounted() {
-    console.log(this.active);
+    this.root.addItems(this);
   },
 
   methods: {
     selected() {
-      //   console.log("1");
       this.$emit("add:selected", this.item);
     },
   },
@@ -39,11 +39,19 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
+@import "./_var.scss";
 .my-nav-item {
   padding: 10px 10px;
+  position: relative;
   &.active {
-    background: #999;
-    color: red;
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      border-bottom: 2px solid $blue;
+      width: 100%;
+    }
   }
 }
 </style>

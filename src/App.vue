@@ -194,9 +194,19 @@
 
     <my-nav :selected.sync="selectedName">
       <my-nav-item item="1">option1</my-nav-item>
-      <my-nav-item item="2">option2</my-nav-item>
-      <my-nav-item item="3">option3</my-nav-item>
-      <my-nav-item item="4">option4</my-nav-item>
+      <my-sub-nav>
+        <template slot="title">option2</template>
+        <my-nav-item item="2">option2-1</my-nav-item>
+        <my-nav-item item="3">option2-2</my-nav-item>
+        <my-sub-nav>
+          <template slot="title">option2-3</template>
+          <my-nav-item item="4">option2-3-1</my-nav-item>
+          <my-nav-item item="5">option2-3-2</my-nav-item>
+          <my-nav-item item="6">option2-3-3</my-nav-item>
+        </my-sub-nav>
+      </my-sub-nav>
+      <my-nav-item item="7">option3</my-nav-item>
+      <my-nav-item item="8">option4</my-nav-item>
     </my-nav>
     {{ selectedName }}
   </div>
