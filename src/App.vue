@@ -180,7 +180,7 @@
     >
     </my-cascader> -->
 
-    <my-slider :selected.sync="selected" autoPlay>
+    <!-- <my-slider :selected.sync="selected" autoPlay>
       <my-slider-item name="1">
         <div class="box">1</div>
       </my-slider-item>
@@ -190,7 +190,15 @@
       <my-slider-item name="3">
         <div class="box">3</div>
       </my-slider-item>
-    </my-slider>
+    </my-slider> -->
+
+    <my-nav :selected.sync="selectedName">
+      <my-nav-item item="1">option1</my-nav-item>
+      <my-nav-item item="2">option2</my-nav-item>
+      <my-nav-item item="3">option3</my-nav-item>
+      <my-nav-item item="4">option4</my-nav-item>
+    </my-nav>
+    {{ selectedName }}
   </div>
 </template>
 
@@ -231,6 +239,7 @@ export default {
       selectTab: ["1"],
       source: [],
       selected: "1",
+      selectedName: ["1"],
     };
   },
   created() {
