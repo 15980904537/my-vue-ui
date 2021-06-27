@@ -192,7 +192,7 @@
       </my-slider-item>
     </my-slider> -->
 
-    <my-nav :selected.sync="selectedName">
+    <!-- <my-nav :selected.sync="selectedName">
       <my-nav-item item="1">option1</my-nav-item>
       <my-sub-nav item="option2">
         <template slot="title">option2</template>
@@ -213,7 +213,13 @@
       </my-sub-nav>
       <my-nav-item item="10">option3</my-nav-item>
       <my-nav-item item="11">option4</my-nav-item>
-    </my-nav>
+    </my-nav> -->
+
+    <my-pager
+      :current.sync="number"
+      :totalPage="15"
+      :hideOnSinglePage="false"
+    ></my-pager>
   </div>
 </template>
 
@@ -255,6 +261,7 @@ export default {
       source: [],
       selected: "1",
       selectedName: ["1"],
+      number: 7,
     };
   },
   created() {
