@@ -31,6 +31,8 @@ export default {
 
   methods: {
     selected() {
+      this.root.namepath = [];
+      this.$parent.updateNamePath && this.$parent.updateNamePath();
       this.$emit("add:selected", this.item);
     },
   },

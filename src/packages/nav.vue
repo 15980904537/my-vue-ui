@@ -25,6 +25,7 @@ export default {
   data() {
     return {
       items: [],
+      namepath: [],
     };
   },
 
@@ -82,6 +83,7 @@ export default {
   display: flex;
   border-bottom: 1px solid $grey;
   color: $color;
+  user-select: none;
   /* border: 1px solid red; */
 }
 </style>

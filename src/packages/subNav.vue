@@ -1,7 +1,10 @@
 <template>
-  <div class="my-sub-nav">
+  <div class="my-sub-nav" v-clickOutside="close">
     <span class="my-sub-nav-title" @click="onClick">
       <slot name="title"></slot>
+      <span class="my-sub-nav-icon" :class="{ open }">
+        <my-icon icon="right"></my-icon>
+      </span>
     </span>
     <div class="my-sub-nav-popover" v-show="open">
       <slot></slot>
@@ -12,7 +15,13 @@
 <script>
 export default {
   name: "my-sub-nav",
-  props: [""],
+  inject: ["root"],
+  props: {
+    item: {
+      type: String,
+      default: "",
+    },
+  },
   data() {
     return {
       open: false,
@@ -33,6 +42,16 @@ export default {
     onClick() {
       this.open = !this.open;
     },
+    close() {
+      this.open = false;
+    },
+    updateNamePath() {
+      this.root.namepath.unshift(this.item);
+      if (this.$parent.updateNamePath) {
+        this.$parent.updateNamePath();
+      } else {
+      }
+    },
   },
 
   watch: {},
@@ -46,6 +65,10 @@ export default {
     padding: 10px 10px;
     display: inline-flex;
     vertical-align: top;
+    align-items: center;
+  }
+  &-icon {
+    display: none;
   }
   .my-sub-nav-popover {
     position: absolute;
@@ -64,6 +87,27 @@ export default {
 }
 .my-sub-nav .my-sub-nav {
   position: relative;
+  .my-sub-nav-title {
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */
+    .my-sub-nav-icon {
+      transition: transform 0.5s;
+      display: inline-flex;
+      margin-left: 1em;
+      /* margin-left: auto; */
+      svg {
+        fill: $light-color;
+        width: 16px;
+        height: 16px;
+      }
+
+      &.open {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
   .my-sub-nav-popover {
     position: absolute;
     top: 0;
