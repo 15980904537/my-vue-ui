@@ -215,11 +215,12 @@
       <my-nav-item item="11">option4</my-nav-item>
     </my-nav> -->
 
-    <my-pager
+    <!-- <my-pager
       :current.sync="number"
       :totalPage="15"
       :hideOnSinglePage="false"
-    ></my-pager>
+    ></my-pager> -->
+    <my-table :dataSource="dataSource" :columns="columns"></my-table>
   </div>
 </template>
 
@@ -262,6 +263,15 @@ export default {
       selected: "1",
       selectedName: ["1"],
       number: 7,
+      dataSource: [
+        { id: 1, name: "张三", score: 99 },
+        { id: 2, name: "张四", score: 98 },
+        { id: 3, name: "张五", score: 97 },
+      ],
+      columns: [
+        { text: "姓名", field: "name" },
+        { text: "成绩", field: "score" },
+      ],
     };
   },
   created() {
