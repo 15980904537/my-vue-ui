@@ -3,7 +3,9 @@
     <table class="my-table" :class="{ striped, border, compact }">
       <thead>
         <tr>
-          <th><input type="checkbox" @change="onChangeAllItems($event)" /></th>
+          <th>
+            <input type="checkbox" @change="onChangeAllItems($event)" />
+          </th>
           <th v-if="numberVisible">#</th>
           <th v-for="(column, index) in columns" :key="index">
             {{ column.text }}
@@ -80,8 +82,7 @@ export default {
       if (selected) {
         copy.push(data);
       } else {
-        let index = copy.indexOf(selected);
-        copy.splice(index, 1);
+        copy = copy.filter((item) => item.id !== data.id);
       }
       this.$emit("update:selectItems", copy);
     },
