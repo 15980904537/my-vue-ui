@@ -220,7 +220,20 @@
       :totalPage="15"
       :hideOnSinglePage="false"
     ></my-pager> -->
-    <my-table :dataSource="dataSource" :columns="columns"></my-table>
+    <my-table
+      :dataSource="dataSource"
+      :columns="columns"
+      striped
+      border
+    ></my-table>
+    <div style="margin-top: 20px"></div>
+    <my-table
+      :dataSource="dataSource"
+      :columns="columns"
+      striped
+      border
+      compact
+    ></my-table>
   </div>
 </template>
 
@@ -267,6 +280,15 @@ export default {
         { id: 1, name: "张三", score: 99 },
         { id: 2, name: "张四", score: 98 },
         { id: 3, name: "张五", score: 97 },
+        { id: 4, name: "张三", score: 99 },
+        { id: 5, name: "张四", score: 98 },
+        { id: 6, name: "张五", score: 97 },
+        { id: 7, name: "张三", score: 99 },
+        { id: 8, name: "张四", score: 98 },
+        { id: 9, name: "张五", score: 97 },
+        { id: 10, name: "张三", score: 99 },
+        { id: 11, name: "张四", score: 98 },
+        { id: 12, name: "张五", score: 97 },
       ],
       columns: [
         { text: "姓名", field: "name" },
