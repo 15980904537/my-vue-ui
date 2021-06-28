@@ -3,7 +3,7 @@
     <table class="my-table" :class="{ striped, border, compact }">
       <thead>
         <tr>
-          <th><input type="checkbox" /></th>
+          <th><input type="checkbox" @change="onChangeAllItems($event)" /></th>
           <th v-if="numberVisible">#</th>
           <th v-for="(column, index) in columns" :key="index">
             {{ column.text }}
@@ -12,7 +12,13 @@
       </thead>
       <tbody>
         <tr v-for="data in dataSource" :key="data.id">
-          <td><input type="checkbox" @change="changeItem" /></td>
+          <td>
+            <input
+              type="checkbox"
+              @change="onChangeItem(data, $event)"
+              :checked="inSelectedItems(data)"
+            />
+          </td>
           <td v-if="numberVisible">{{ data.id }}</td>
           <td v-for="(column, index) in columns" :key="index">
             {{ data[column.field] }}
@@ -27,6 +33,10 @@
 export default {
   name: "my-table",
   props: {
+    selectItems: {
+      type: Array,
+      default: () => [],
+    },
     columns: {
       type: Array,
       required: true,
@@ -58,16 +68,31 @@ export default {
     return {};
   },
 
-  components: {},
-
-  computed: {},
-
-  beforeMount() {},
-
   mounted() {},
 
   methods: {
-    changeItem() {},
+    inSelectedItems(data) {
+      return this.selectItems.filter((item) => item.id === data.id).length > 0;
+    },
+    onChangeItem(data, $event) {
+      let selected = $event.target.checked;
+      let copy = JSON.parse(JSON.stringify(this.selectItems));
+      if (selected) {
+        copy.push(data);
+      } else {
+        let index = copy.indexOf(selected);
+        copy.splice(index, 1);
+      }
+      this.$emit("update:selectItems", copy);
+    },
+    onChangeAllItems($event) {
+      let selected = $event.target.checked;
+      if (selected) {
+        this.$emit("update:selectItems", this.dataSource);
+      } else {
+        this.$emit("update:selectItems", []);
+      }
+    },
   },
 
   watch: {},

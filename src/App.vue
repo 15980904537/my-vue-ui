@@ -221,19 +221,13 @@
       :hideOnSinglePage="false"
     ></my-pager> -->
     <my-table
+      :selectItems.sync="selectItems"
       :dataSource="dataSource"
       :columns="columns"
       striped
       border
     ></my-table>
-    <div style="margin-top: 20px"></div>
-    <my-table
-      :dataSource="dataSource"
-      :columns="columns"
-      striped
-      border
-      compact
-    ></my-table>
+    {{ selectItems }}
   </div>
 </template>
 
@@ -276,6 +270,7 @@ export default {
       selected: "1",
       selectedName: ["1"],
       number: 7,
+      selectItems: [],
       dataSource: [
         { id: 1, name: "张三", score: 99 },
         { id: 2, name: "张四", score: 98 },
