@@ -4,7 +4,11 @@
       <thead>
         <tr>
           <th>
-            <input type="checkbox" @change="onChangeAllItems($event)" />
+            <input
+              type="checkbox"
+              @change="onChangeAllItems($event)"
+              ref="allChecked"
+            />
           </th>
           <th v-if="numberVisible">#</th>
           <th v-for="(column, index) in columns" :key="index">
@@ -96,7 +100,18 @@ export default {
     },
   },
 
-  watch: {},
+  watch: {
+    selectItems() {
+      if (
+        this.selectItems.length < this.dataSource.length &&
+        this.selectItems.length > 0
+      ) {
+        this.$refs.allChecked.indeterminate = true;
+      } else {
+        this.$refs.allChecked.indeterminate = false;
+      }
+    },
+  },
 };
 </script>
 <style lang='scss' scoped>
